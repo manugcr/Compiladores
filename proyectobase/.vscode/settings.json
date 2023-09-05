@@ -10,5 +10,6 @@
     "antlr4.debug": {
         "visualParseTreeHorizontal": false,
         "visualParseTreeClustered": true
-    }
+    },
+    "java.debug.settings.onBuildFailureProceed": true
 }

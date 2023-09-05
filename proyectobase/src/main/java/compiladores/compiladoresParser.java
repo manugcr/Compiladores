@@ -19,7 +19,9 @@ public class compiladoresParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NUMERO=1, OTRO=2, ID=3;
+		NUMERO=1, ID=2, TEXT=3, CHARACTER=4, OP=5, CP=6, OB=7, CB=8, SC=9, ADDITION=10, 
+		SUBTR=11, MULT=12, DIV=13, MAIN=14, IF=15, INT=16, STRING=17, BOOLEAN=18, 
+		CHAR=19, FLOAT=20, DOUBLE=21, FALSE=22, TRUE=23, WS=24, OTRO=25;
 	public static final int
 		RULE_s = 0;
 	private static String[] makeRuleNames() {
@@ -31,12 +33,17 @@ public class compiladoresParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
+			null, null, null, null, null, "'('", "')'", "'{'", "'}'", "';'", "'+'", 
+			"'-'", "'*'", "'/'", "'main'", "'if'", "'int'", "'string'", "'bool'", 
+			"'char'", "'float'", "'double'", "'false'", "'true'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NUMERO", "OTRO", "ID"
+			null, "NUMERO", "ID", "TEXT", "CHARACTER", "OP", "CP", "OB", "CB", "SC", 
+			"ADDITION", "SUBTR", "MULT", "DIV", "MAIN", "IF", "INT", "STRING", "BOOLEAN", 
+			"CHAR", "FLOAT", "DOUBLE", "FALSE", "TRUE", "WS", "OTRO"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -94,12 +101,34 @@ public class compiladoresParser extends Parser {
 		public Token ID;
 		public Token NUMERO;
 		public Token OTRO;
+		public Token OP;
+		public Token CP;
+		public Token OB;
+		public Token CB;
+		public Token SC;
+		public Token ADDITION;
+		public Token SUBTR;
+		public Token MULT;
+		public Token DIV;
+		public Token TEXT;
+		public Token CHARACTER;
 		public TerminalNode ID() { return getToken(compiladoresParser.ID, 0); }
 		public SContext s() {
 			return getRuleContext(SContext.class,0);
 		}
 		public TerminalNode NUMERO() { return getToken(compiladoresParser.NUMERO, 0); }
 		public TerminalNode OTRO() { return getToken(compiladoresParser.OTRO, 0); }
+		public TerminalNode OP() { return getToken(compiladoresParser.OP, 0); }
+		public TerminalNode CP() { return getToken(compiladoresParser.CP, 0); }
+		public TerminalNode OB() { return getToken(compiladoresParser.OB, 0); }
+		public TerminalNode CB() { return getToken(compiladoresParser.CB, 0); }
+		public TerminalNode SC() { return getToken(compiladoresParser.SC, 0); }
+		public TerminalNode ADDITION() { return getToken(compiladoresParser.ADDITION, 0); }
+		public TerminalNode SUBTR() { return getToken(compiladoresParser.SUBTR, 0); }
+		public TerminalNode MULT() { return getToken(compiladoresParser.MULT, 0); }
+		public TerminalNode DIV() { return getToken(compiladoresParser.DIV, 0); }
+		public TerminalNode TEXT() { return getToken(compiladoresParser.TEXT, 0); }
+		public TerminalNode CHARACTER() { return getToken(compiladoresParser.CHARACTER, 0); }
 		public TerminalNode EOF() { return getToken(compiladoresParser.EOF, 0); }
 		public SContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -124,7 +153,7 @@ public class compiladoresParser extends Parser {
 		SContext _localctx = new SContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_s);
 		try {
-			setState(12);
+			setState(45);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -157,10 +186,120 @@ public class compiladoresParser extends Parser {
 				s();
 				}
 				break;
-			case EOF:
+			case OP:
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(11);
+				((SContext)_localctx).OP = match(OP);
+				 System.out.println("OP ->" + ((SContext)_localctx).OP.getText() + "<--"); 
+				setState(13);
+				s();
+				}
+				break;
+			case CP:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(14);
+				((SContext)_localctx).CP = match(CP);
+				 System.out.println("CP ->" + ((SContext)_localctx).CP.getText() + "<--"); 
+				setState(16);
+				s();
+				}
+				break;
+			case OB:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(17);
+				((SContext)_localctx).OB = match(OB);
+				 System.out.println("OB ->" + ((SContext)_localctx).OB.getText() + "<--"); 
+				setState(19);
+				s();
+				}
+				break;
+			case CB:
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(20);
+				((SContext)_localctx).CB = match(CB);
+				 System.out.println("CB ->" + ((SContext)_localctx).CB.getText() + "<--"); 
+				setState(22);
+				s();
+				}
+				break;
+			case SC:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(23);
+				((SContext)_localctx).SC = match(SC);
+				 System.out.println("SC ->" + ((SContext)_localctx).SC.getText() + "<--"); 
+				setState(25);
+				s();
+				}
+				break;
+			case ADDITION:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(26);
+				((SContext)_localctx).ADDITION = match(ADDITION);
+				 System.out.println("ADDITION ->" + ((SContext)_localctx).ADDITION.getText() + "<--"); 
+				setState(28);
+				s();
+				}
+				break;
+			case SUBTR:
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(29);
+				((SContext)_localctx).SUBTR = match(SUBTR);
+				 System.out.println("SUBTR ->" + ((SContext)_localctx).SUBTR.getText() + "<--"); 
+				setState(31);
+				s();
+				}
+				break;
+			case MULT:
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(32);
+				((SContext)_localctx).MULT = match(MULT);
+				 System.out.println("MULT ->" + ((SContext)_localctx).MULT.getText() + "<--"); 
+				setState(34);
+				s();
+				}
+				break;
+			case DIV:
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(35);
+				((SContext)_localctx).DIV = match(DIV);
+				 System.out.println("DIV ->" + ((SContext)_localctx).DIV.getText() + "<--"); 
+				setState(37);
+				s();
+				}
+				break;
+			case TEXT:
+				enterOuterAlt(_localctx, 13);
+				{
+				setState(38);
+				((SContext)_localctx).TEXT = match(TEXT);
+				 System.out.println("TEXT ->" + ((SContext)_localctx).TEXT.getText() + "<--"); 
+				setState(40);
+				s();
+				}
+				break;
+			case CHARACTER:
+				enterOuterAlt(_localctx, 14);
+				{
+				setState(41);
+				((SContext)_localctx).CHARACTER = match(CHARACTER);
+				 System.out.println("CHARACTER ->" + ((SContext)_localctx).CHARACTER.getText() + "<--"); 
+				setState(43);
+				s();
+				}
+				break;
+			case EOF:
+				enterOuterAlt(_localctx, 15);
+				{
+				setState(44);
 				match(EOF);
 				}
 				break;
@@ -180,11 +319,21 @@ public class compiladoresParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\5\21\4\2\t\2\3\2"+
-		"\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\17\n\2\3\2\2\2\3\2\2\2\2\22\2"+
-		"\16\3\2\2\2\4\5\7\5\2\2\5\6\b\2\1\2\6\17\5\2\2\2\7\b\7\3\2\2\b\t\b\2\1"+
-		"\2\t\17\5\2\2\2\n\13\7\4\2\2\13\f\b\2\1\2\f\17\5\2\2\2\r\17\7\2\2\3\16"+
-		"\4\3\2\2\2\16\7\3\2\2\2\16\n\3\2\2\2\16\r\3\2\2\2\17\3\3\2\2\2\3\16";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\33\62\4\2\t\2\3\2"+
+		"\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
+		"\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2"+
+		"\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\60\n\2\3\2\2\2\3\2\2\2\2>\2/\3\2\2\2"+
+		"\4\5\7\4\2\2\5\6\b\2\1\2\6\60\5\2\2\2\7\b\7\3\2\2\b\t\b\2\1\2\t\60\5\2"+
+		"\2\2\n\13\7\33\2\2\13\f\b\2\1\2\f\60\5\2\2\2\r\16\7\7\2\2\16\17\b\2\1"+
+		"\2\17\60\5\2\2\2\20\21\7\b\2\2\21\22\b\2\1\2\22\60\5\2\2\2\23\24\7\t\2"+
+		"\2\24\25\b\2\1\2\25\60\5\2\2\2\26\27\7\n\2\2\27\30\b\2\1\2\30\60\5\2\2"+
+		"\2\31\32\7\13\2\2\32\33\b\2\1\2\33\60\5\2\2\2\34\35\7\f\2\2\35\36\b\2"+
+		"\1\2\36\60\5\2\2\2\37 \7\r\2\2 !\b\2\1\2!\60\5\2\2\2\"#\7\16\2\2#$\b\2"+
+		"\1\2$\60\5\2\2\2%&\7\17\2\2&\'\b\2\1\2\'\60\5\2\2\2()\7\5\2\2)*\b\2\1"+
+		"\2*\60\5\2\2\2+,\7\6\2\2,-\b\2\1\2-\60\5\2\2\2.\60\7\2\2\3/\4\3\2\2\2"+
+		"/\7\3\2\2\2/\n\3\2\2\2/\r\3\2\2\2/\20\3\2\2\2/\23\3\2\2\2/\26\3\2\2\2"+
+		"/\31\3\2\2\2/\34\3\2\2\2/\37\3\2\2\2/\"\3\2\2\2/%\3\2\2\2/(\3\2\2\2/+"+
+		"\3\2\2\2/.\3\2\2\2\60\3\3\2\2\2\3/";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

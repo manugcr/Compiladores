@@ -1,2 +1,7 @@
 probando 123 probando
 test
+{}
+()
+;
+'character'
+"texto"
