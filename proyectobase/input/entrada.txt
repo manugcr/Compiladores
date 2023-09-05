@@ -1,7 +1,21 @@
 probando 123 probando
-test
-{}
 ()
+{}
 ;
++
+-
+*
+/
+main
+if
+int
+string
+bool
+char 
+float
+double
+false
+true
 'character'
 "texto"
+A1

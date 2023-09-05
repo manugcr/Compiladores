@@ -4,6 +4,7 @@ grammar compiladores;
 package compiladores;
 }
 
+// ANALIZADOR LEXICO
 fragment LETRA : [A-Za-z] ;
 fragment DIGITO : [0-9] ;
 
@@ -12,7 +13,6 @@ NUMERO : DIGITO+ ;
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 TEXT : '"' .*? '"' ;
 CHARACTER : '\'' (LETRA) '\'';
-
 // Operaciones.
 OP : '(';
 CP : ')';
@@ -23,7 +23,6 @@ ADDITION : '+';
 SUBTR : '-';
 MULT : '*';
 DIV : '/';
-
 // Palabras reservadas.
 MAIN : 'main';
 IF :	'if';
@@ -35,9 +34,10 @@ FLOAT : 'float';
 DOUBLE : 'double';
 FALSE : 'false';
 TRUE : 'true';
-
-WS : [ \n\t\r] -> skip; // skipea si hay un salto de linea o similar.
+// Skip
+WS : [ \n\t\r] -> skip;
 OTRO : . ;
+// FINALIZA ANALIZADOR LEXICO
 
 s : ID     { System.out.println("ID ->" + $ID.getText() + "<--"); }         s
   | NUMERO { System.out.println("NUMERO ->" + $NUMERO.getText() + "<--"); } s
