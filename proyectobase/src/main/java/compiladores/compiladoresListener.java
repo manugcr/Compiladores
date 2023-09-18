@@ -10,6 +10,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface compiladoresListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link compiladoresParser#si}.
+	 * @param ctx the parse tree
+	 */
+	void enterSi(compiladoresParser.SiContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link compiladoresParser#si}.
+	 * @param ctx the parse tree
+	 */
+	void exitSi(compiladoresParser.SiContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#s}.
 	 * @param ctx the parse tree
 	 */

@@ -13,6 +13,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface compiladoresVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link compiladoresParser#si}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSi(compiladoresParser.SiContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link compiladoresParser#s}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
