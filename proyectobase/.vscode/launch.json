@@ -13,7 +13,7 @@
             // Archivo a parsear
             "input": "input/entrada.txt",
             // Simbolo inicial
-            "startRule": "si",
+            "startRule": "programa",
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true

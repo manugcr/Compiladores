@@ -1,4 +1,4 @@
-// Generated from /home/manu/facultad/compiladores/Compiladores/proyectobase/src/main/java/compiladores/compiladores.g4 by ANTLR 4.9.2
+// Generated from /home/manu/facultad/compiladores/Compiladores/proyectobase/src/main/java/compiladores/compiladores.g4 by ANTLR 4.13.1
 
 package compiladores;
 
@@ -20,26 +20,6 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitPrograma(compiladoresParser.ProgramaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#tipo}.
-	 * @param ctx the parse tree
-	 */
-	void enterTipo(compiladoresParser.TipoContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#tipo}.
-	 * @param ctx the parse tree
-	 */
-	void exitTipo(compiladoresParser.TipoContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#logica}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogica(compiladoresParser.LogicaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#logica}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogica(compiladoresParser.LogicaContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#instrucciones}.
 	 * @param ctx the parse tree
 	 */
@@ -60,35 +40,35 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitInstruccion(compiladoresParser.InstruccionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#principal}.
+	 * Enter a parse tree produced by {@link compiladoresParser#declaracion}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrincipal(compiladoresParser.PrincipalContext ctx);
+	void enterDeclaracion(compiladoresParser.DeclaracionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#principal}.
+	 * Exit a parse tree produced by {@link compiladoresParser#declaracion}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrincipal(compiladoresParser.PrincipalContext ctx);
+	void exitDeclaracion(compiladoresParser.DeclaracionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#bloque}.
+	 * Enter a parse tree produced by {@link compiladoresParser#definicion}.
 	 * @param ctx the parse tree
 	 */
-	void enterBloque(compiladoresParser.BloqueContext ctx);
+	void enterDefinicion(compiladoresParser.DefinicionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#bloque}.
+	 * Exit a parse tree produced by {@link compiladoresParser#definicion}.
 	 * @param ctx the parse tree
 	 */
-	void exitBloque(compiladoresParser.BloqueContext ctx);
+	void exitDefinicion(compiladoresParser.DefinicionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#incremento}.
+	 * Enter a parse tree produced by {@link compiladoresParser#lista_var}.
 	 * @param ctx the parse tree
 	 */
-	void enterIncremento(compiladoresParser.IncrementoContext ctx);
+	void enterLista_var(compiladoresParser.Lista_varContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#incremento}.
+	 * Exit a parse tree produced by {@link compiladoresParser#lista_var}.
 	 * @param ctx the parse tree
 	 */
-	void exitIncremento(compiladoresParser.IncrementoContext ctx);
+	void exitLista_var(compiladoresParser.Lista_varContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#asignacion}.
 	 * @param ctx the parse tree
@@ -100,75 +80,25 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitAsignacion(compiladoresParser.AsignacionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#ireturn}.
+	 * Enter a parse tree produced by {@link compiladoresParser#while_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterIreturn(compiladoresParser.IreturnContext ctx);
+	void enterWhile_stmt(compiladoresParser.While_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#ireturn}.
+	 * Exit a parse tree produced by {@link compiladoresParser#while_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitIreturn(compiladoresParser.IreturnContext ctx);
+	void exitWhile_stmt(compiladoresParser.While_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#inst_if}.
+	 * Enter a parse tree produced by {@link compiladoresParser#expresion}.
 	 * @param ctx the parse tree
 	 */
-	void enterInst_if(compiladoresParser.Inst_ifContext ctx);
+	void enterExpresion(compiladoresParser.ExpresionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#inst_if}.
+	 * Exit a parse tree produced by {@link compiladoresParser#expresion}.
 	 * @param ctx the parse tree
 	 */
-	void exitInst_if(compiladoresParser.Inst_ifContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#inst_for}.
-	 * @param ctx the parse tree
-	 */
-	void enterInst_for(compiladoresParser.Inst_forContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#inst_for}.
-	 * @param ctx the parse tree
-	 */
-	void exitInst_for(compiladoresParser.Inst_forContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#inst_while}.
-	 * @param ctx the parse tree
-	 */
-	void enterInst_while(compiladoresParser.Inst_whileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#inst_while}.
-	 * @param ctx the parse tree
-	 */
-	void exitInst_while(compiladoresParser.Inst_whileContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#inst_else}.
-	 * @param ctx the parse tree
-	 */
-	void enterInst_else(compiladoresParser.Inst_elseContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#inst_else}.
-	 * @param ctx the parse tree
-	 */
-	void exitInst_else(compiladoresParser.Inst_elseContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#llamada_func}.
-	 * @param ctx the parse tree
-	 */
-	void enterLlamada_func(compiladoresParser.Llamada_funcContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#llamada_func}.
-	 * @param ctx the parse tree
-	 */
-	void exitLlamada_func(compiladoresParser.Llamada_funcContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#comparacion}.
-	 * @param ctx the parse tree
-	 */
-	void enterComparacion(compiladoresParser.ComparacionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#comparacion}.
-	 * @param ctx the parse tree
-	 */
-	void exitComparacion(compiladoresParser.ComparacionContext ctx);
+	void exitExpresion(compiladoresParser.ExpresionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#exp}.
 	 * @param ctx the parse tree
@@ -180,6 +110,16 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitExp(compiladoresParser.ExpContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link compiladoresParser#termino}.
+	 * @param ctx the parse tree
+	 */
+	void enterTermino(compiladoresParser.TerminoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link compiladoresParser#termino}.
+	 * @param ctx the parse tree
+	 */
+	void exitTermino(compiladoresParser.TerminoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#term}.
 	 * @param ctx the parse tree
 	 */
@@ -190,26 +130,6 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitTerm(compiladoresParser.TermContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#f}.
-	 * @param ctx the parse tree
-	 */
-	void enterF(compiladoresParser.FContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#f}.
-	 * @param ctx the parse tree
-	 */
-	void exitF(compiladoresParser.FContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#t}.
-	 * @param ctx the parse tree
-	 */
-	void enterT(compiladoresParser.TContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#t}.
-	 * @param ctx the parse tree
-	 */
-	void exitT(compiladoresParser.TContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#factor}.
 	 * @param ctx the parse tree
 	 */
@@ -219,4 +139,14 @@ public interface compiladoresListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFactor(compiladoresParser.FactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link compiladoresParser#opal}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpal(compiladoresParser.OpalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link compiladoresParser#opal}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpal(compiladoresParser.OpalContext ctx);
 }
