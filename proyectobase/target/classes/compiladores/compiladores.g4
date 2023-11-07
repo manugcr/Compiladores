@@ -28,6 +28,18 @@ WS : [ \n\t\r] -> skip ;
 OTRO : . ;
 
 
+// s : ID     { System.out.println("ID ->" + $ID.getText() + "<--"); }         s
+//   | NUMERO { System.out.println("NUMERO ->" + $NUMERO.getText() + "<--"); } s
+//   | OTRO   { System.out.println("Otro ->" + $OTRO.getText() + "<--"); }     s
+//   | EOF
+//   ;
+
+// si : s EOF ;
+
+// s : PA s PC s
+//   |
+//   ;
+
 programa : instrucciones EOF ;
 
 instrucciones : instruccion instrucciones
