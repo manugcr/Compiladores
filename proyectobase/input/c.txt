@@ -1,11 +1,10 @@
-int suma (int x, int y); 
+int add (int x, int y); 
 
 int main () {
 
-    y = suma(x, 5); 
-    if (y == 10) {
-        int z = 4;
-        z = z + x;
+    y = add(x, 1); 
+    if (a == 1) {
+        int b += 4;
     } 
 
     return 0;
