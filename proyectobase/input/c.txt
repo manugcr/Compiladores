@@ -1,16 +1,12 @@
-x = 5 ;
-y = x + 3 ;
-z = 2 * (x + 3 * y);
+int suma (int x, int y); 
 
-int x ;
-int a, b, c, d;
-int y = 10 ;
-int o, p = 5, q = 1, r;
+int main () {
 
-while ( x )
-    int ;
+    y = suma(x, 5); 
+    if (y == 10) {
+        int z = 4;
+        z = z + x;
+    } 
 
-while ( hola ) {
-    int ;
-    int ;
+    return 0;
 }

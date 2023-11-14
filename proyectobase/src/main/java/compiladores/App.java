@@ -29,11 +29,11 @@ public class App {
 
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
-        // parser.programa();
-        ParseTree tree = parser.programa();
+        parser.program();
+        // ParseTree tree = parser.programa();
         // Conectamos el visitor
-        MiCaminante visitor = new MiCaminante();
-        visitor.visit(tree);
+        // MiCaminante visitor = new MiCaminante();
+        // visitor.visit(tree);
         // System.out.println(visitor);
         // System.out.println(visitor.getErrorNodes());
         // Imprime el arbol obtenido
