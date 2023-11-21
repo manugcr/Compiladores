@@ -1,7 +1,7 @@
 grammar compiladores;
 
 @header {
-package compiladores;
+    package compiladores;
 }
 
  /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
@@ -164,7 +164,6 @@ factor      : NUMBER
             ;
 
 
-
 /* 
  * WHILE
  * A while has a condition inside parentheses and a block of code that contains the instructions to execute.
@@ -182,6 +181,7 @@ while_stmt  : WHILE O_PAREN expression C_PAREN (instruction | SEMICOLON) ;
  */
 for_stmt    : FOR O_PAREN ID EQUAL (NUMBER | ID) SEMICOLON comparison SEMICOLON (ID EQUAL ID (ADD | SUB) NUMBER) C_PAREN (instruction | SEMICOLON);
 
+
 /*
  * COMPARISON
  * A comparison is a statement that compares two values and returns a boolean value.
@@ -189,6 +189,7 @@ for_stmt    : FOR O_PAREN ID EQUAL (NUMBER | ID) SEMICOLON comparison SEMICOLON 
 comparison  : ID logic expression 
             | ID logic ID
             ;
+
 
 /*
  * LOGIC
@@ -204,6 +205,7 @@ logic       : LESS_THAN
             | NOT_EQUALS
             | EQUALS
             ;
+
 
 /* 
  * RETURN 
@@ -231,6 +233,7 @@ else_stmt   : ELSE IF O_PAREN instruction C_PAREN instruction else_stmt
             | ELSE instruction
             |
             ;
+
 
 /* 
  * INCREMENT DECREMENT
@@ -264,9 +267,7 @@ function_call : ID O_PAREN argument_list? C_PAREN ;
 argument_list : expression (COMMA expression)* ;
 
 
-
-
-// /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-//  * END SYNTACTIC RULES  
-//  * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-//  */
+/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ * END SYNTACTIC RULES  
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ */
