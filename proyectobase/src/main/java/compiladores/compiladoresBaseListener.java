@@ -79,25 +79,37 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDefinition(compiladoresParser.DefinitionContext ctx) { }
+	@Override public void enterStatements(compiladoresParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDefinition(compiladoresParser.DefinitionContext ctx) { }
+	@Override public void exitStatements(compiladoresParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterList(compiladoresParser.ListContext ctx) { }
+	@Override public void enterStatement_with_assign(compiladoresParser.Statement_with_assignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitList(compiladoresParser.ListContext ctx) { }
+	@Override public void exitStatement_with_assign(compiladoresParser.Statement_with_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignments(compiladoresParser.AssignmentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignments(compiladoresParser.AssignmentsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -115,49 +127,61 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(compiladoresParser.ExpressionContext ctx) { }
+	@Override public void enterLogical_arithmetic_expression(compiladoresParser.Logical_arithmetic_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(compiladoresParser.ExpressionContext ctx) { }
+	@Override public void exitLogical_arithmetic_expression(compiladoresParser.Logical_arithmetic_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm_aux(compiladoresParser.Term_auxContext ctx) { }
+	@Override public void enterLogic(compiladoresParser.LogicContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm_aux(compiladoresParser.Term_auxContext ctx) { }
+	@Override public void exitLogic(compiladoresParser.LogicContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(compiladoresParser.TermContext ctx) { }
+	@Override public void enterArithmetic_expression(compiladoresParser.Arithmetic_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(compiladoresParser.TermContext ctx) { }
+	@Override public void exitArithmetic_expression(compiladoresParser.Arithmetic_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor_aux(compiladoresParser.Factor_auxContext ctx) { }
+	@Override public void enterA_term(compiladoresParser.A_termContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor_aux(compiladoresParser.Factor_auxContext ctx) { }
+	@Override public void exitA_term(compiladoresParser.A_termContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAt(compiladoresParser.AtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAt(compiladoresParser.AtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -175,49 +199,25 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhile_stmt(compiladoresParser.While_stmtContext ctx) { }
+	@Override public void enterAf(compiladoresParser.AfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhile_stmt(compiladoresParser.While_stmtContext ctx) { }
+	@Override public void exitAf(compiladoresParser.AfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFor_stmt(compiladoresParser.For_stmtContext ctx) { }
+	@Override public void enterInc_dec(compiladoresParser.Inc_decContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFor_stmt(compiladoresParser.For_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterComparison(compiladoresParser.ComparisonContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitComparison(compiladoresParser.ComparisonContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLogic(compiladoresParser.LogicContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLogic(compiladoresParser.LogicContext ctx) { }
+	@Override public void exitInc_dec(compiladoresParser.Inc_decContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -259,13 +259,61 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInc_dec(compiladoresParser.Inc_decContext ctx) { }
+	@Override public void enterWhile_stmt(compiladoresParser.While_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInc_dec(compiladoresParser.Inc_decContext ctx) { }
+	@Override public void exitWhile_stmt(compiladoresParser.While_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_stmt(compiladoresParser.For_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_stmt(compiladoresParser.For_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_declaration(compiladoresParser.For_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_declaration(compiladoresParser.For_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_condition(compiladoresParser.For_conditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_condition(compiladoresParser.For_conditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_update(compiladoresParser.For_updateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_update(compiladoresParser.For_updateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -283,6 +331,18 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunction_declaration(compiladoresParser.Function_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_declaration(compiladoresParser.Function_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParameter_list(compiladoresParser.Parameter_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -290,6 +350,30 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParameter_list(compiladoresParser.Parameter_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_prototype(compiladoresParser.Function_prototypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_prototype(compiladoresParser.Function_prototypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParameters_prototype(compiladoresParser.Parameters_prototypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParameters_prototype(compiladoresParser.Parameters_prototypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -307,13 +391,25 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgument_list(compiladoresParser.Argument_listContext ctx) { }
+	@Override public void enterCall_list(compiladoresParser.Call_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgument_list(compiladoresParser.Argument_listContext ctx) { }
+	@Override public void exitCall_list(compiladoresParser.Call_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCall_parameter(compiladoresParser.Call_parameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCall_parameter(compiladoresParser.Call_parameterContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

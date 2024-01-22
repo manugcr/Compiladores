@@ -6,7 +6,6 @@ import compiladores.compiladoresParser.ProgramContext;
 
 public class Listener extends compiladoresBaseListener{
     private Integer context = 0;
-
     
     @Override
     public void enterProgram(ProgramContext ctx) {

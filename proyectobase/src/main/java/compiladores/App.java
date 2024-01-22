@@ -22,10 +22,10 @@ public class App {
         compiladoresParser parser = new compiladoresParser(tokens);
                 
         // create Listener
-        compiladoresBaseListener listener = new Listener();
+        // compiladoresBaseListener listener = new Listener();
 
         // Conecto el objeto con Listeners al parser
-        parser.addParseListener(listener);
+        // parser.addParseListener(listener);
 
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
@@ -33,8 +33,8 @@ public class App {
         ParseTree tree = parser.program();
 
         // Conectamos el visitor
-        Visitor visitor = new Visitor();
-        visitor.visit(tree);
+        // Visitor visitor = new Visitor();
+        // visitor.visit(tree);
         // System.out.println(visitor);
         // System.out.println(visitor.getErrorNodes());
 
