@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // create a CharStream that reads from file
-        CharStream input = CharStreams.fromFileName("input/c.txt");
+        CharStream input = CharStreams.fromFileName("input/input.c");
 
         // create a lexer that feeds off of input CharStream
         compiladoresLexer lexer = new compiladoresLexer(input);
@@ -22,25 +22,29 @@ public class App {
         compiladoresParser parser = new compiladoresParser(tokens);
                 
         // create Listener
-        // compiladoresBaseListener listener = new Listener();
+        compiladoresBaseListener listener = new Listener();
 
         // Conecto el objeto con Listeners al parser
-        // parser.addParseListener(listener);
+        parser.addParseListener(listener);
 
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
-        // parser.program();
-        ParseTree tree = parser.program();
+        ParseTree tree = null;
+        try {
+            tree = parser.program();
 
-        // Conectamos el visitor
-        // Visitor visitor = new Visitor();
-        // visitor.visit(tree);
-        // System.out.println(visitor);
-        // System.out.println(visitor.getErrorNodes());
+            // Conectamos el visitor
+            Visitor visitor = new Visitor();
+            // visitor.visit(tree);
+            // System.out.println(visitor);
+            // System.out.println(visitor.getErrorNodes());
 
-        // Imprime el arbol obtenido
-        // System.out.println(tree.toStringTree(parser));
-        // System.out.println(listener);
-        
+            // Imprime el arbol obtenido
+            // System.out.println(tree.toStringTree(parser));
+            // System.out.println(listener);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
 }

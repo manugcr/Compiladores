@@ -1,0 +1,40 @@
+@startuml SymbolTable
+
+hide circle
+
+class SymbolTable <<Singleton>> {
+    - List<Map<String,Id> table 
+    + getInstanceOf() : SymbolTable
+    + addContext()
+    + delContext()
+    + addSymbol(Id id)
+    + searchSymbol(Id id)
+    + searchLocalSymbol(Id id)
+}
+
+enum DataType <<enum>> {
+    VOID, 
+    INT,
+    DOUBLE,
+    CHAR
+}
+
+abstract class Id <<abstract>> {
+    - String name
+    - DataType dataType
+    - Boolean initialized
+    - Boolean used
+}
+
+class Variable {}
+
+class Function {
+    - List<DataType> args
+}
+
+SymbolTable --> Id
+
+Id <|-- Variable
+Id <|-- Function
+Id --> DataType
+@enduml
