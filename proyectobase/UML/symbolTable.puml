@@ -13,10 +13,12 @@ class SymbolTable <<Singleton>> {
 }
 
 enum DataType <<enum>> {
-    VOID, 
     INT,
     DOUBLE,
-    CHAR
+    CHAR,
+    VOID, 
+    STRING,
+    BOOLEAN
 }
 
 abstract class Id <<abstract>> {

@@ -7,6 +7,13 @@ public abstract class ID {
     protected Boolean used;
     protected Boolean initialized;
 
+    public ID(String name, DataType dataType, Boolean used, Boolean initialized) {
+        this.name = name;
+        this.dataType = dataType;
+        this.used = used;
+        this.initialized = initialized;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
