@@ -85,4 +85,5 @@ else_stmt   : ELSE IF O_PAREN logical_arithmetic_expression C_PAREN instruction 
             |
             ;
 ```
-
+# Analisis semantico
+El analisis semantico es la tercera fase de un compilador, su funcion es analizar el significado del codigo fuente y comprobar que cumpla con las reglas semanticas del lenguaje. El analizador semantico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con las reglas semanticas del lenguaje. Si el analizador semantico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado. 
