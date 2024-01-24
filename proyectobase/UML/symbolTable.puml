@@ -2,14 +2,14 @@
 
 hide circle
 
-class SymbolTable <<Singleton>> {
-    - List<Map<String,Id> table 
-    + getInstanceOf() : SymbolTable
+class SymbolTable {
+    - ArrayList<HashMap<String,ID> table 
     + addContext()
     + delContext()
-    + addSymbol(Id id)
-    + searchSymbol(Id id)
-    + searchLocalSymbol(Id id)
+    + addSymbol(ID id)
+    + searchSymbol(ID id)
+    + searchLocalSymbol(ID id)
+    + printSymbolTable()
 }
 
 enum DataType <<enum>> {
@@ -21,7 +21,7 @@ enum DataType <<enum>> {
     BOOLEAN
 }
 
-abstract class Id <<abstract>> {
+abstract class ID <<abstract>> {
     - String name
     - DataType dataType
     - Boolean initialized
@@ -34,9 +34,9 @@ class Function {
     - List<DataType> args
 }
 
-SymbolTable --> Id
+SymbolTable --> ID
 
-Id <|-- Variable
-Id <|-- Function
-Id --> DataType
+ID <|-- Variable
+ID <|-- Function
+ID --> DataType
 @enduml
