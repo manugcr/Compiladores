@@ -2,6 +2,7 @@ package compiladores;
 
 import java.util.LinkedList;
 
+
 class Parameter {
     private DataType dataType;
     private String name;
@@ -34,7 +35,10 @@ public class Function extends ID {
     private Boolean isPrototype;
 
     public Function (String name, DataType dataType, Boolean used, Boolean initialized) {
-        super(name, dataType, used, initialized);
+        super.name = name;
+        super.dataType = dataType;
+        super.used = used;
+        super.initialized = initialized;
         this.args = new LinkedList<Parameter>();
         this.isPrototype = false;
     }

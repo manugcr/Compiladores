@@ -1,9 +1,12 @@
 package compiladores;
 
+import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 public class SymbolTable {
     private LinkedList<Map<String, ID>> list;
@@ -73,4 +76,21 @@ public class SymbolTable {
         }
     }
 
+    public void saveSymbolTable(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            for (Map<String, ID> map : this.list) {
+                for (ID id : map.values()) {
+                    writer.write(id.getName() + " " + id.getDataType() + " " + id.getUsed() + " " + id.getInitialized() + "\n");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Unable to write file: " + filePath);
+        }
+    }
+
+    public void delFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists())
+            file.delete();
+    }
 }

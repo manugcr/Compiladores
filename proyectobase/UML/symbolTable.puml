@@ -2,41 +2,69 @@
 
 hide circle
 
-class SymbolTable {
-    - ArrayList<HashMap<String,ID> table 
-    + addContext()
-    + delContext()
-    + addSymbol(ID id)
-    + searchSymbol(ID id)
-    + searchLocalSymbol(ID id)
-    + printSymbolTable()
+class SymbolTable <<singleton>> {
+    - table : ArrayList<HashMap<String,ID>  
+    + getInstanceOf() : SymbolTable
+    + addContext() : void
+    + delContext() : void
+    + addSymbol() : void
+    + searchSymbol() : ID
+    + searchLocalSymbol() : ID
+    + printSymbolTable() : void
 }
 
 enum DataType <<enum>> {
-    INT,
-    DOUBLE,
-    CHAR,
-    VOID, 
-    STRING,
+    INT
+    DOUBLE
+    CHAR
+    VOID 
+    STRING
     BOOLEAN
+    + getDataType() : Datatype
 }
 
 abstract class ID <<abstract>> {
-    - String name
-    - DataType dataType
-    - Boolean initialized
-    - Boolean used
+    - name : String
+    - dataType : DataType
+    - initialized : Boolean
+    - used : Boolean
+    + setName() : void
+    + getName() : String
+    + setDataType() : void
+    + getDataType() : DataType
+    + setUsed() : void
+    + getUsed() : Boolean
+    + setInitialized() : void
+    + getInitialized() : Boolean
 }
 
 class Variable {}
 
 class Function {
-    - List<DataType> args
+    - args: LinkedList<Parameter>
+    - isPrototype: Boolean
+    + setArgs(): void
+    + getArgs(): LinkedList<Parameter>
+    + getDataTypeArgs(): LinkedList<DataType>
+    + addArg(): void
+    + setIsPrototype(): void
+    + getIsPrototype(): Boolean
+    + compareArgs(): Boolean
+}
+
+class Parameter {
+    - dataType: DataType
+    - name: String
+    + getDataType(): DataType
+    + getName(): String
+    + setDataType(): void
+    + setName(): void
 }
 
 SymbolTable --> ID
-
 ID <|-- Variable
 ID <|-- Function
 ID --> DataType
+Function <-- Parameter
+
 @enduml

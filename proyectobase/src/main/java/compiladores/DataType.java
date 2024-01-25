@@ -22,7 +22,7 @@ public enum DataType {
             case "string":
                 return DataType.STRING;
             case "boolean":
-                return DataType.BOOLEAN;
+                return DataType.BOOLEAN;    
             default:
                 return null;
         }
