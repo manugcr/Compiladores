@@ -35,7 +35,7 @@ public class App {
 
             // Conectamos el visitor
             Visitor visitor = new Visitor();
-            // visitor.visit(tree);
+            visitor.visit(tree);
             // System.out.println(visitor);
             // System.out.println(visitor.getErrorNodes());
 

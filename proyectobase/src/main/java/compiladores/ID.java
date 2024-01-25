@@ -2,10 +2,10 @@ package compiladores;
 
 
 public abstract class ID {
-    String name;
-    DataType dataType;
-    Boolean used;
-    Boolean initialized;
+    protected String name;
+    protected DataType dataType;
+    protected Boolean used;
+    protected Boolean initialized;
 
     public void setName(String name) {
         this.name = name;
