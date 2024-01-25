@@ -1,30 +1,32 @@
 package compiladores;
 
 public enum DataType {
-    VOID, 
-    INT, 
-    DOUBLE, 
-    CHAR, 
-    STRING, 
+    INT,
+    DOUBLE,
+    CHAR,
+    VOID,
+    STRING,
     BOOLEAN;
 
-    // Get dataType from string ignoring case
     public static DataType getDataType(String dataType) {
-        switch (dataType.toLowerCase()) {
-            case "void":
-                return DataType.VOID;
-            case "int":
+        switch (dataType.toUpperCase()) {
+            case "INT":
                 return DataType.INT;
-            case "double":
+            case "DOUBLE":
                 return DataType.DOUBLE;
-            case "char":
+            case "CHAR":
                 return DataType.CHAR;
-            case "string":
+            case "VOID":
+                return DataType.VOID;
+            case "STRING":
                 return DataType.STRING;
-            case "boolean":
-                return DataType.BOOLEAN;    
+            case "BOOLEAN":
+                return DataType.BOOLEAN;
             default:
-                return null;
+                throw new IllegalArgumentException("DataType not found");
         }
     }
+    
 }
+
+

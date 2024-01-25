@@ -17,8 +17,9 @@ public class SymbolTable {
     }
 
     public static SymbolTable getInstanceOf() {
-        if (instace == null)
+        if (instace == null) {
             instace = new SymbolTable();
+        }
         return instace;
     }
 
@@ -36,8 +37,9 @@ public class SymbolTable {
 
     public ID searchSymbol(String name) {
         for (Map<String, ID> map : this.list) {
-            if (map.containsKey(name))
+            if (map.containsKey(name)) {
                 return map.get(name);
+            }
         }
         return null;
     }
@@ -50,8 +52,9 @@ public class SymbolTable {
         List<String> unusedID = new LinkedList<String>();
         for (Map<String, ID> map : this.list) {
             for (ID id : map.values()) {
-                if (!id.getUsed())
+                if (!id.getUsed()) {
                     unusedID.add(id.getName());
+                }
             }
         }
         return unusedID;
@@ -61,8 +64,9 @@ public class SymbolTable {
         List<String> usedUninitialized = new LinkedList<String>();
         for (Map<String, ID> map : this.list) {
             for (ID id : map.values()) {
-                if (id.getUsed() && !id.getInitialized())
+                if (id.getUsed() && !id.getInitialized()) {
                     usedUninitialized.add(id.getName());
+                }
             }
         }
         return usedUninitialized;
@@ -90,7 +94,8 @@ public class SymbolTable {
 
     public void delFile(String filePath) {
         File file = new File(filePath);
-        if (file.exists())
+        if (file.exists()) {
             file.delete();
+        }
     }
 }

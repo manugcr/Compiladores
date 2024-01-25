@@ -2,7 +2,6 @@ package compiladores;
 
 import java.util.LinkedList;
 
-
 class Parameter {
     private DataType dataType;
     private String name;
@@ -34,7 +33,7 @@ public class Function extends ID {
     private LinkedList<Parameter> args;
     private Boolean isPrototype;
 
-    public Function (String name, DataType dataType, Boolean used, Boolean initialized) {
+    public Function(String name, DataType dataType, Boolean used, Boolean initialized) {
         super.name = name;
         super.dataType = dataType;
         super.used = used;
@@ -52,11 +51,12 @@ public class Function extends ID {
     }
 
     public LinkedList<DataType> getDataTypeArgs() {
-        LinkedList <DataType> dataTypes = new LinkedList<DataType>();
+        LinkedList<DataType> dataTypes = new LinkedList<DataType>();
 
-        for (Parameter parameter : this.args)
+        for (Parameter parameter : this.args) {
             dataTypes.add(parameter.getDataType());
-        
+        }
+
         return dataTypes;
     }
 
@@ -74,13 +74,15 @@ public class Function extends ID {
     }
 
     public Boolean compareArgs(LinkedList<Parameter> prototypeArgs) {
-        if(this.args.size() != prototypeArgs.size())
+        if (this.args.size() != prototypeArgs.size()) {
             return false;
-        for(int i=0; i<this.args.size(); i++)
-            if(this.args.get(i).getDataType() != prototypeArgs.get(i).getDataType())
+        }
+        for (int i = 0; i < this.args.size(); i++) {
+            if (this.args.get(i).getDataType() != prototypeArgs.get(i).getDataType()) {
                 return false;
-        
+            }
+        }
         return true;
     }
-    
+
 }

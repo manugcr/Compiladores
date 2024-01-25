@@ -18,12 +18,10 @@ public class Listener extends compiladoresBaseListener {
     public void delContext() {
 
         symbolTable.saveSymbolTable(filePath);
-        //Unused variables and functions
+        
         if(!symbolTable.getUnusedID().isEmpty())
             warningMessage += ("\nWarning: Unused " + symbolTable.getUnusedID()); 
  
-        //The prototypes defined in this context lose their scope, therefore it is verified if they were
-        // used and not initialized
         if(!symbolTable.getUsedUninitialized().isEmpty()) 
             throw new RuntimeException("error: undefined reference to '" + symbolTable.getUsedUninitialized().get(0) + "'");
 
