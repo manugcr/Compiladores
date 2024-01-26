@@ -54,6 +54,7 @@ ELSE                : 'else'    ;
 WHILE               : 'while'   ;
 FOR                 : 'for'     ;
 
+INCDECOPERATORS     : (ADD ADD | SUB SUB)                               ;
 TYPE                : (INT | DOUBLE | CHAR | VOID | STRING | BOOLEAN)   ;
 ID                  : (LETTER | '_')(LETTER | DIGIT | '_')*             ;
 NUMBER              : DIGIT+                                            ;
@@ -120,13 +121,13 @@ block_of_code   : O_BRACE instructions C_BRACE ;
  *                  int y = 10 ;
  *                  int o, p = 5, q = 1, r;
  */
-statement   : TYPE statements SEMICOLON ;
+statement               : TYPE statements SEMICOLON ;
 
-statements  : ID COMMA statements   
-            | ID
-            | statement_with_assign COMMA statements
-            | statement_with_assign
-            ;
+statements              : ID COMMA statements   
+                        | ID
+                        | statement_with_assign COMMA statements
+                        | statement_with_assign
+                        ;
 
 statement_with_assign   : ID EQUAL logical_arithmetic_expression
                         ;
@@ -191,26 +192,26 @@ logic   : logic AND logic
 arithmetic_expression   : a_term at
                         ;
 
-a_term  : factor af
-        ;
+a_term                  : factor af
+                        ;
 
-at  : ADD a_term at
-    | SUB a_term at
-    |
-    ;
+at                      : ADD a_term at
+                        | SUB a_term at
+                        |
+                        ;
 
-factor  : NUMBER
-        | ID
-        | O_PAREN logical_arithmetic_expression C_PAREN
-        | inc_dec
-        | function_call
-        ;
+factor                  : NUMBER
+                        | ID
+                        | O_PAREN logical_arithmetic_expression C_PAREN
+                        | inc_dec
+                        | function_call
+                        ;
 
-af  : MULT factor af
-    | DIV factor af
-    | MOD factor af
-    |
-    ;
+af                      : MULT factor af
+                        | DIV factor af
+                        | MOD factor af
+                        |
+                        ;
 
 
 /* 
@@ -220,12 +221,10 @@ af  : MULT factor af
  *                  x--;
  *                  x += 5;
  */
-inc_dec     : ID '+=' NUMBER
-            | ID '++'
+inc_dec     : ID '++'
             | ID '--'
-            | ID '-=' NUMBER
-            | ID '+=' ID
-            | ID '-=' ID
+            | '--' ID
+            | '++' ID
             ;
 
 
@@ -270,8 +269,8 @@ while_stmt  : WHILE O_PAREN logical_arithmetic_expression C_PAREN (instruction |
  *      Example:    for (int i = 0; i < 10; i++) {}
  *                  for (int i = 0; i < 10; i++) { int x = 5; }            
  */
-for_stmt    : FOR O_PAREN for_declaration for_condition for_update C_PAREN (instruction | SEMICOLON)
-            ;
+for_stmt        : FOR O_PAREN for_declaration for_condition for_update C_PAREN (instruction | SEMICOLON)
+                ;
 
 for_declaration : statement
                 | assignment SEMICOLON
@@ -282,11 +281,11 @@ for_condition   : logical_arithmetic_expression SEMICOLON
                 | SEMICOLON
                 ;
 
-for_update  : logical_arithmetic_expression COMMA for_update
-            | logical_arithmetic_expression
-            | assignments
-            |
-            ;
+for_update      : logical_arithmetic_expression COMMA for_update
+                | logical_arithmetic_expression
+                | assignments
+                |
+                ;
 
 /*
  * FUNCTION
@@ -322,6 +321,7 @@ function_call           : ID O_PAREN call_list C_PAREN
 
 call_list               : call_parameter
                         | call_parameter COMMA call_list
+                        |
                         ;
 
 call_parameter          : NUMBER
