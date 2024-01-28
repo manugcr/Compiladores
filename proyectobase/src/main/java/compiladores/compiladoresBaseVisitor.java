@@ -209,7 +209,7 @@ public class compiladoresBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitParameter_list(compiladoresParser.Parameter_listContext ctx) { return visitChildren(ctx); }
+	@Override public T visitParameters_list(compiladoresParser.Parameters_listContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -237,7 +237,7 @@ public class compiladoresBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCall_list(compiladoresParser.Call_listContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCall_parameters_list(compiladoresParser.Call_parameters_listContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

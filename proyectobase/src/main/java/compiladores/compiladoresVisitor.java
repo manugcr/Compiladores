@@ -175,11 +175,11 @@ public interface compiladoresVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_declaration(compiladoresParser.Function_declarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link compiladoresParser#parameter_list}.
+	 * Visit a parse tree produced by {@link compiladoresParser#parameters_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameter_list(compiladoresParser.Parameter_listContext ctx);
+	T visitParameters_list(compiladoresParser.Parameters_listContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link compiladoresParser#function_prototype}.
 	 * @param ctx the parse tree
@@ -199,11 +199,11 @@ public interface compiladoresVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_call(compiladoresParser.Function_callContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link compiladoresParser#call_list}.
+	 * Visit a parse tree produced by {@link compiladoresParser#call_parameters_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCall_list(compiladoresParser.Call_listContext ctx);
+	T visitCall_parameters_list(compiladoresParser.Call_parameters_listContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link compiladoresParser#call_parameter}.
 	 * @param ctx the parse tree

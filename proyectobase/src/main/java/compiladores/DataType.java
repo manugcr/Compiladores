@@ -28,5 +28,3 @@ public enum DataType {
     }
     
 }
-
-

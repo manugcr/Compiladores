@@ -54,7 +54,6 @@ ELSE                : 'else'    ;
 WHILE               : 'while'   ;
 FOR                 : 'for'     ;
 
-INCDECOPERATORS     : (ADD ADD | SUB SUB)                               ;
 TYPE                : (INT | DOUBLE | CHAR | VOID | STRING | BOOLEAN)   ;
 ID                  : (LETTER | '_')(LETTER | DIGIT | '_')*             ;
 NUMBER              : DIGIT+                                            ;
@@ -79,15 +78,16 @@ OTHER               : .                                                 ;
 /* 
  * Initial symbol of the syntactic rules. 
  */
-program         : instructions EOF ;
-
+program : instructions EOF
+        ;
 
 /* 
  * A program is a series of instructions. 
  */
-instructions    : instruction instructions
-                |
-                ;
+instructions : instruction instructions
+             |
+             ;
+
 
 
 /* 
@@ -95,7 +95,7 @@ instructions    : instruction instructions
  */
 instruction     : block_of_code
                 | statement 
-                | assignment SEMICOLON 
+                | assignments SEMICOLON 
                 | return_stmt
                 | if_stmt
                 | while_stmt
@@ -218,8 +218,8 @@ af                      : MULT factor af
  * INCREMENT DECREMENT
  * An increment is a statement that increments or decrements a variable by a number or another variable.
  *      Example:    x++;
- *                  x--;
- *                  x += 5;
+ *                  --x;
+ *                  
  */
 inc_dec     : ID '++'
             | ID '--'
@@ -298,11 +298,11 @@ function_stmt           : function_declaration block_of_code
                         | function_prototype
                         ;
 
-function_declaration    : TYPE ID O_PAREN parameter_list C_PAREN
+function_declaration    : TYPE ID O_PAREN parameters_list C_PAREN
                         ;
 
-parameter_list          : TYPE ID 
-                        | TYPE ID COMMA parameter_list
+parameters_list          : TYPE ID 
+                        | TYPE ID COMMA parameters_list
                         |
                         ;
 
@@ -316,11 +316,11 @@ parameters_prototype    : TYPE ID
                         |
                         ;
 
-function_call           : ID O_PAREN call_list C_PAREN
+function_call           : ID O_PAREN call_parameters_list C_PAREN
                         ;
 
-call_list               : call_parameter
-                        | call_parameter COMMA call_list
+call_parameters_list    : call_parameter
+                        | call_parameter COMMA call_parameters_list
                         |
                         ;
 

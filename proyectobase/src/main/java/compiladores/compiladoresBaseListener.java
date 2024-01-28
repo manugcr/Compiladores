@@ -343,13 +343,13 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameter_list(compiladoresParser.Parameter_listContext ctx) { }
+	@Override public void enterParameters_list(compiladoresParser.Parameters_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameter_list(compiladoresParser.Parameter_listContext ctx) { }
+	@Override public void exitParameters_list(compiladoresParser.Parameters_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -391,13 +391,13 @@ public class compiladoresBaseListener implements compiladoresListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCall_list(compiladoresParser.Call_listContext ctx) { }
+	@Override public void enterCall_parameters_list(compiladoresParser.Call_parameters_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCall_list(compiladoresParser.Call_listContext ctx) { }
+	@Override public void exitCall_parameters_list(compiladoresParser.Call_parameters_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

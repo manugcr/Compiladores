@@ -280,15 +280,15 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitFunction_declaration(compiladoresParser.Function_declarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#parameter_list}.
+	 * Enter a parse tree produced by {@link compiladoresParser#parameters_list}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameter_list(compiladoresParser.Parameter_listContext ctx);
+	void enterParameters_list(compiladoresParser.Parameters_listContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#parameter_list}.
+	 * Exit a parse tree produced by {@link compiladoresParser#parameters_list}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameter_list(compiladoresParser.Parameter_listContext ctx);
+	void exitParameters_list(compiladoresParser.Parameters_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#function_prototype}.
 	 * @param ctx the parse tree
@@ -320,15 +320,15 @@ public interface compiladoresListener extends ParseTreeListener {
 	 */
 	void exitFunction_call(compiladoresParser.Function_callContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link compiladoresParser#call_list}.
+	 * Enter a parse tree produced by {@link compiladoresParser#call_parameters_list}.
 	 * @param ctx the parse tree
 	 */
-	void enterCall_list(compiladoresParser.Call_listContext ctx);
+	void enterCall_parameters_list(compiladoresParser.Call_parameters_listContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link compiladoresParser#call_list}.
+	 * Exit a parse tree produced by {@link compiladoresParser#call_parameters_list}.
 	 * @param ctx the parse tree
 	 */
-	void exitCall_list(compiladoresParser.Call_listContext ctx);
+	void exitCall_parameters_list(compiladoresParser.Call_parameters_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link compiladoresParser#call_parameter}.
 	 * @param ctx the parse tree

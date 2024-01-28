@@ -6,7 +6,9 @@ int main() {
 
     var2 = 4*5;
 
-    addition(var1, var2);
+    int result = addition(var1, var2);
+    result++;
+    
 
     return 0;    
 }
