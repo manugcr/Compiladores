@@ -375,14 +375,10 @@ public class Listener extends compiladoresBaseListener{
 
     @Override
     public void exitInstruction(InstructionContext ctx) {
-
         if(!(ctx.getChild(0) instanceof Block_of_codeContext)) {
-
             if (ctx.getParent() instanceof For_stmtContext | ctx.getParent() instanceof If_stmtContext  | ctx.getParent() instanceof Else_stmtContext | ctx.getParent() instanceof While_stmtContext) {
                 delContext();
             }
-            
-            
         }
     }
 

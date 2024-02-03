@@ -89,9 +89,15 @@ public class SymbolTable {
 
 
     public void printSymbolTable() {
+        System.out.println("----------------- Symbol Table -----------------");
+        System.out.println(String.format("%-20s%-10s%-6s%-12s\n", "NAME", "TYPE", "USED", "INITIALIZED"));
         for (Map<String, ID> map : this.list) {
             for (ID id : map.values()) {
-                System.out.println(id.getName() + " " + id.getDataType() + " " + id.getUsed() + " " + id.getInitialized());
+                String name = id.getName();
+                DataType type = id.getDataType();
+                String used = String.valueOf(id.getUsed());
+                String initialized = String.valueOf(id.getInitialized());
+                System.out.println(String.format("%-20s%-10s%-6s%-12s\n", name, type, used, initialized));  
             }
         }
     }
