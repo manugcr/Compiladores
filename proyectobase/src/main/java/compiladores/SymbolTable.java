@@ -106,7 +106,7 @@ public class SymbolTable {
     public void saveSymbolTable(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             // Write the headers of the symbol table.
-            writer.write("----------------- Symbol Table -----------------\n");
+            writer.write("----------------- Symbol Table Context -----------------\n");
             writer.write(String.format("%-20s%-10s%-6s%-12s\n", "NAME", "TYPE", "USED", "INITIALIZED"));
             for (Map<String, ID> map : this.list) {
                 for (ID id : map.values()) {
