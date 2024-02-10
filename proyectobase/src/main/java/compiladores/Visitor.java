@@ -8,8 +8,11 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitProgram(ProgramContext ctx) {
-        System.out.println("\n-------------------\n<<Visitor begins>>\n-------------------");
-        System.out.println("\n-------------------\n<<Visitor ends>>\n-------------------");
+        System.out.println("\n ----------- Visitor begins ------------\n");
+        
+        // Implement here...
+
+        System.out.println("\n ----------- Visitor ends --------------\n");
         return super.visitProgram(ctx);
     }
 

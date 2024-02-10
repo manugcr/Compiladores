@@ -3,7 +3,7 @@
 hide circle
 
 class SymbolTable <<singleton>> {
-    - table : ArrayList<HashMap<String,ID>  
+    - table : LinkedList<Map<String,ID>  
     + getInstanceOf() : SymbolTable
     + addContext() : void
     + delContext() : void

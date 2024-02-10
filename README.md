@@ -50,7 +50,7 @@ Se comienza por la raiz y se recorre el arbol de forma recursiva de la siguiente
 
 ---
 
-# Analisis Lexico
+# Analisis Lexico o scanning
 El analisis lexico es la primera fase de un compilador, su funcion es leer el codigo fuente caracter por caracter y agruparlos en unidades logicas llamadas tokens. Un token es una secuencia de caracteres que juntos tienen un significado. El analizador lexico se encarga de reconocer los tokens y pasarlos al analizador sintactico para que este los analice.
 
 ANTLR nos facilita la creacion de estas expresiones con un archivo compiladores.g4
@@ -72,8 +72,8 @@ WS                  : [ \n\t\r] -> skip                                 ;
 OTHER
 ```
 
-# Analisis sintactico
-El analisis sintactico es la segunda fase de un compilador, su funcion es analizar la estructura del codigo fuente y comprobar que cumpla con la gramatica del lenguaje. El analizador sintactico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con la gramatica del lenguaje. Si el analizador sintactico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado.
+# Analisis sintactico o parsing
+El analisis sintactico es la segunda fase de un compilador, su funcion es analizar la estructura del codigo fuente y comprobar que cumpla con la gramatica del lenguaje. El analizador sintactico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con la gramatica del lenguaje. La gramatica del lenguaje se define mediante reglas recursivas, donde el resultado sera una jerarquia de tokens represnetados en forma de arbol. Si el analizador sintactico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado.
 
 Por ejemplo en el mismo compiladores.g4 se puede definir la gramatica del lenguaje
 ``` antlr
@@ -85,10 +85,48 @@ else_stmt   : ELSE IF O_PAREN logical_arithmetic_expression C_PAREN instruction 
             |
             ;
 ```
+
+Conceptualmente se puede ver la fase del analisis lexico y sintactico como dos fases diferentes, pero en el momento de la ejecucion el compilador puede ejecutar estas dos etapas en forma conjunta. El analizador sintactico solicita los nuevos tokens al analizador lexico a medida que los va necesitando.
+
 # Analisis semantico
-El analisis semantico es la tercera fase de un compilador, su funcion es analizar el significado del codigo fuente y comprobar que cumpla con las reglas semanticas del lenguaje. El analizador semantico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con las reglas semanticas del lenguaje. Si el analizador semantico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado. 
+El analisis semantico es la tercera fase de un compilador, su funcion es analizar el significado del codigo fuente y comprobar que cumpla con las reglas semanticas del lenguaje, es decir que lo que escribimos tenga un sentido. El analizador semantico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con las reglas semanticas del lenguaje. Si el analizador semantico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado. 
 
 --- 
 
 # Tabla de Simbolos
+La tabla de simbolos es uno de los elementos mas importantes en un compilador, su funcion es almacenar la informacion de las variables, funciones y constantes que se utilizan en el programa fuente. Se utiliza para comprobar que las variables y funciones se utilicen de forma correcta, es decir que se declaren antes de ser utilizadas, nuestra tabla lleva un control de esta informacion por cada contexto del programa, es decir que va a guardar una lista de contextos con la informacion anteriomente nombrada. Es un paso importante en el analisis semantico para comprobar que las variables y funciones se utilicen de forma correcta.
+
+La tabla de simbolos se puede implementar de diferentes formas, en este trabajo se utilizara una tabla de simbolos implementada como una lista enlazada. Cada nodo de la lista contendra la informacion de una variable o funcion, como el nombre, el tipo, el alcance, etc.
+
 ![](./imgs/symTableUML.png)
+
+La implementacion se puede ver en el diagrama UML donde se utilizo una LinkedList de HashMaps para almacenar la informacion de las variables y funciones, al que es posible acceder mediante un token o valor. Y es el Listener el encargado de llenar nuestra tabla de simbolos al recorrer el arbol sintactico y llegar a una funcion de exit().
+
+Para nuestro caso tambien se llevara un control de si la variable se uso o no, si se inicializo o no, el nombre y el tipo de la variable.
+```log
+----------------- Symbol Table -----------------
+NAME                TYPE      USED  INITIALIZED 
+addition            INT       true  false       
+main                INT       true  true        
+var1                INT       true  true        
+var2                INT       true  true        
+result              INT       true  true        
+```
+
+---
+# Codigo intermedio
+El codigo intermedio o three-adress-code (TAC) es una representacion intermedia de un programa fuente, es decir es una representacion intermedia entre el codigo fuente y el codigo objeto. Se utiliza para simplificar el proceso de generacion de codigo objeto, ya que es lo suficientemente abtracto para ser independiente de la arquitectura de la maquina, pero es muy concreto como para ser optimizado.
+
+Para llegar a esta etapa de compilacion podemos asegurar que nuestro arbol no tiene errores lexicos, semanticos ni sintactico. Esto no quiere decir que el programa se ejecute de la manera que deseamos, si no que puede ser ejecutado.
+
+Se le dice tres direcciones ya que cada instruccion tiene a lo sumo solo tres operandos, por ejemplo:
+```c
+// Codigo C
+z = 2 * (x + 3 * y);
+
+// Codigo TAC
+t0 = 3 * y
+t1 = x + t0
+t2 = 2 * t1
+z = t2
+```

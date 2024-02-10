@@ -1,3 +1,25 @@
+/**
+ * This class represents a function identifier within the symbol table. In programming languages, functions are named
+ * blocks of code that perform a specific task and can be called from other parts of the program. The Function class
+ * extends the ID class to inherit common properties such as name, data type, usage status, and initialization status.
+ * Additionally, it introduces specific functionality and properties related to functions.
+ * 
+ * The args field stores a list of parameters (inputs) associated with the function. Each parameter is represented by
+ * the Parameter class, which encapsulates information about its data type and name.
+ * 
+ * The isPrototype field indicates whether the function is a prototype declaration, typically used in function
+ * declarations to specify the function's signature without providing its implementation. This distinction is important
+ * during semantic analysis and code generation.
+ * 
+ * The class provides methods to manipulate and access these properties, including adding arguments to the function,
+ * retrieving argument data types, determining whether the function matches a given prototype (in terms of argument
+ * types), and managing the prototype status.
+ * 
+ * By extending the ID class, the Function class leverages encapsulation and code reuse, promoting maintainability
+ * and consistency within the symbol table implementation.
+ */
+
+
 package compiladores;
 
 import java.util.LinkedList;

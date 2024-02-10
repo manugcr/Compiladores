@@ -1,3 +1,25 @@
+/**
+ * This class implements a symbol table, a fundamental component in compilers and interpreters. The symbol table
+ * organizes information about identifiers (symbols) encountered during the compilation process. Its purpose is to
+ * track and manage the symbols' properties, such as their names, data types, usage status, and initialization status.
+ * 
+ * The symbol table is essential for various compiler tasks, including semantic analysis, code generation, and error
+ * checking. It helps ensure consistency and correctness in the generated code by detecting undeclared variables,
+ * type mismatches, and other semantic errors.
+ * 
+ * The symbol table is implemented using a hierarchical structure of contexts, represented by a linked list of maps.
+ * Each context corresponds to a scope in the source code, such as a function or a block. The use of a linked list allows
+ * for efficient handling of nested scopes, enabling proper scoping rules (e.g., variable shadowing).
+ * 
+ * Within each context, symbols are stored in a map data structure, specifically a LinkedHashMap, to preserve insertion
+ * order. This choice ensures that symbols are processed in the order they were declared, facilitating error reporting
+ * and symbol table visualization.
+ * 
+ * Key operations supported by the symbol table include adding and deleting contexts, adding symbols to the current
+ * context, searching for symbols globally and locally within the current context, retrieving lists of unused and
+ * uninitialized symbols, printing the symbol table to the console, saving it to a file, and deleting a file.
+ */
+    
 package compiladores;
 
 import java.util.List;
@@ -105,8 +127,7 @@ public class SymbolTable {
 
     public void saveSymbolTable(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            // Write the headers of the symbol table.
-            writer.write("----------------- Symbol Table Context -----------------\n");
+            writer.write("----------------- Symbol Table -----------------\n");
             writer.write(String.format("%-20s%-10s%-6s%-12s\n", "NAME", "TYPE", "USED", "INITIALIZED"));
             for (Map<String, ID> map : this.list) {
                 for (ID id : map.values()) {
