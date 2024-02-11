@@ -1,0 +1,16 @@
+@startuml VariableGenerator
+
+hide circle 
+
+class VariableGenerator <<singleton>> {
+    - static instance : VariableGenerator
+    - numberOfVariables : int
+    - variables : LinkedList<String>
+    + getInstanceOf() : VariableGenerator
+    + getNumberOfVariables() : int
+    + getVariables() : LinkedList<String>
+    + getLastVariable() : String
+    + getNewVariable() : String
+}
+
+@enduml

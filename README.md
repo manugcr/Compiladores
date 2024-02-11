@@ -91,6 +91,18 @@ Conceptualmente se puede ver la fase del analisis lexico y sintactico como dos f
 # Analisis semantico
 El analisis semantico es la tercera fase de un compilador, su funcion es analizar el significado del codigo fuente y comprobar que cumpla con las reglas semanticas del lenguaje, es decir que lo que escribimos tenga un sentido. El analizador semantico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con las reglas semanticas del lenguaje. Si el analizador semantico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado. 
 
+Por ejemplo si tenemos el codigo:
+```c
+int main() {
+    int a = 5;
+    char* b = "Hello";
+    printf("%d\n", a+b);
+    return 0;
+}
+```
+
+Podriamos decir que el codigo es correcto en cuanto a la gramatica del lenguaje, pero si analizamos el significado del codigo, nos damos cuenta que hay un error en la linea 4, ya que no se puede sumar un entero con un string. El analizador semantico se encargara de detectar este tipo de errores.
+
 --- 
 
 # Tabla de Simbolos
@@ -114,12 +126,15 @@ result              INT       true  true
 ```
 
 ---
+
 # Codigo intermedio
 El codigo intermedio o three-adress-code (TAC) es una representacion intermedia de un programa fuente, es decir es una representacion intermedia entre el codigo fuente y el codigo objeto. Se utiliza para simplificar el proceso de generacion de codigo objeto, ya que es lo suficientemente abtracto para ser independiente de la arquitectura de la maquina, pero es muy concreto como para ser optimizado.
 
 Para llegar a esta etapa de compilacion podemos asegurar que nuestro arbol no tiene errores lexicos, semanticos ni sintactico. Esto no quiere decir que el programa se ejecute de la manera que deseamos, si no que puede ser ejecutado.
 
-Se le dice tres direcciones ya que cada instruccion tiene a lo sumo solo tres operandos, por ejemplo:
+Se le dice tres direcciones ya que cada instruccion tiene a lo sumo solo tres operandos o direcciones de memoria. Los operandos no contienen direcciones de memoria concretas, si no simbolicas que luego son convertidas en direcciones reales una vez asignados los registros.
+
+Un ejemplo de generacion:
 ```c
 // Codigo C
 z = 2 * (x + 3 * y);
@@ -130,3 +145,31 @@ t1 = x + t0
 t2 = 2 * t1
 z = t2
 ```
+
+```c
+// Codigo C
+if (x > 0)
+    y = z + 5;
+else
+    y = z - 5;
+
+// Codigo TAC
+t0 = x > 0
+ifnjmp t0 jmp l0
+    y = z + 5
+    jmp l1
+label l0
+    y = z - 5
+label l1
+```
+
+Para poder generar este codigo utilizamos el visitor que nos provee ANTLR, el cual recorre el arbol sintactico y va visitando los nodos en particular.
+
+---
+
+# Optimizacion de codigo intermedio
+
+
+---
+
+# Ejemplo de ejecucion

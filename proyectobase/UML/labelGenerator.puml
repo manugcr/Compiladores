@@ -1,0 +1,16 @@
+@startuml LabelGenerator
+
+hide circle
+
+class LabelGenerator <<singleton>> {
+    - static instance : LabelGenerator
+    - numberOfLabels : int
+    - labels : LinkedList<String>
+    + getInstanceOf() : LabelGenerator
+    + getNumberOfLabels() : int
+    + getLabels() : LinkedList<String>
+    + getLastLabel() : String
+    + getNewLabel(labelType : String) : String
+}
+
+@enduml
