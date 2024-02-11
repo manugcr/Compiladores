@@ -213,7 +213,8 @@ public class Listener extends compiladoresBaseListener{
     @Override
     public void exitStatement(StatementContext ctx) {
 
-        DataType statementDataType = DataType.getDataType(ctx.TYPE().getText()); //All variables have the same type
+        //All variables have the same type
+        DataType statementDataType = DataType.getDataType(ctx.TYPE().getText()); 
         StatementsContext statementsTypes = ctx.statements();
 
         while (true) {
@@ -251,6 +252,7 @@ public class Listener extends compiladoresBaseListener{
 
     @Override
     public void exitAssignment(AssignmentContext ctx) {
+        
         String variableName = ctx.ID().getText();
 
         ID variable = symbolTable.searchSymbol(variableName);
@@ -268,6 +270,7 @@ public class Listener extends compiladoresBaseListener{
 
     @Override
     public void exitFactor(FactorContext ctx) {
+        
         if (ctx.ID() != null) {
             ID id = symbolTable.searchSymbol(ctx.ID().getText());
 
@@ -300,6 +303,7 @@ public class Listener extends compiladoresBaseListener{
 
     @Override
     public void exitFunction_call(Function_callContext ctx) {
+        
         Function function = (Function) symbolTable.searchSymbol(ctx.ID().getText());
 
         if (function != null) { //Function exists
@@ -308,57 +312,66 @@ public class Listener extends compiladoresBaseListener{
             }
             
             LinkedList <DataType> expectedParameters = function.getDataTypeArgs();
-            
             LinkedList <DataType> parameters = new LinkedList<>();
-
             Call_parameters_listContext callParameters = ctx.call_parameters_list();
 
             while (callParameters.getChildCount() != 0) {
                 Call_parameterContext parameter = callParameters.call_parameter();
 
-                if (parameter.NUMBER() != null) { //Parameter is a number
+                // Parameter is a number
+                if (parameter.NUMBER() != null) { 
                     parameters.add(DataType.INT);
                 }
                 
-                else if (parameter.ID() != null) { //Parameter is a variable
+                // Parameter is a variable
+                else if (parameter.ID() != null) { 
                     String variableName = parameter.ID().getText();
                     Variable variable = (Variable) symbolTable.searchSymbol(variableName);
-                    if (variable != null) { //Variable exists
+                    
+                    // Variable exists
+                    if (variable != null) { 
                         if (!variable.getInitialized()) {
                             warningMessage += ("\nwarning: '" + variableName + "' is used uninitialized");
                         }
                         variable.setUsed(true);
                     } 
-                    else {//Variable does not exist
+                    // Variable does not exist
+                    else {
                         throw new RuntimeException("error: '" + variableName + "' undeclared (first use in this function)");
                     }
 
                     parameters.add(variable.getDataType());
                 }
 
-                else if (parameter.inc_dec() != null) { //Parameter is a inc_dec
+                // Parameter is a inc_dec
+                else if (parameter.inc_dec() != null) { 
                     String variableName = parameter.inc_dec().ID().getText();
                     Variable variable = (Variable) symbolTable.searchSymbol(variableName);
 
-                    if (variable != null) { //Variable exists
+                    // Variable exists
+                    if (variable != null) { 
                         if (!variable.getInitialized()) {
                             warningMessage += ("\nwarning: '" + variableName + "' is used uninitialized");
                         }
                         variable.setUsed(true);
                     }
-                    else { //Variable does not exist
-                        throw new RuntimeException("error: '" + variableName + "' undeclared (first use in this function)");
+                    // Variable does not exist
+                    else { 
+                        throw new RuntimeException("error: '" + variableName + "' undeclared (first use in this function)");    
                     }
 
                     parameters.add(DataType.INT);
                 }
 
-                else if (parameter.function_call() != null){ //Parameter is a function call
-                    Function functionParameter = (Function) symbolTable.searchSymbol(parameter.function_call().ID().getText()); //It does not check if the function exist because it is another function call 
+                // Parameter is a function call
+                else if (parameter.function_call() != null){ 
+                    // It does not check if the function exist because it is another function call 
+                    Function functionParameter = (Function) symbolTable.searchSymbol(parameter.function_call().ID().getText()); 
                     parameters.add(functionParameter.getDataType());
                 }
 
-                else if (parameter.logical_arithmetic_expression() != null) { //Parameter is an opal
+                // Parameter is an opal
+                else if (parameter.logical_arithmetic_expression() != null) { 
                     parameters.add(DataType.INT);
                 }
                 
@@ -371,44 +384,51 @@ public class Listener extends compiladoresBaseListener{
                 
             }
 
+            // Check if the number of returned parameters is the same as the expected parameters
             if(!compareLists(parameters, expectedParameters)) {
-                throw new RuntimeException("error: In function " + function.getName() + " invalid parameters\n Obtained: " + parameters + "\n Expected " + expectedParameters);
+                throw new RuntimeException("Error: In function " + function.getName() + " invalid parameters\n Obtained: " + parameters + "\n Expected " + expectedParameters);
             }
 
             function.setUsed(true);
         }
-        else { //Function does not exist
-            throw new RuntimeException("error: implicit declaration of function " + ctx.ID().getText());
+        // Function does not exist
+        else { 
+            throw new RuntimeException("Error: implicit declaration of function " + ctx.ID().getText());
         }
     }
 
 
     @Override
     public void enterFor_stmt(For_stmtContext ctx) {
+        
         symbolTable.addContext();
     }
 
     
     @Override
     public void enterWhile_stmt (While_stmtContext ctx) {
+        
         symbolTable.addContext();
     }
     
 
     @Override
     public void enterIf_stmt (If_stmtContext ctx) {
+        
         symbolTable.addContext();
     }
 
 
     @Override
     public void enterElse_stmt (Else_stmtContext ctx) {
+        
         symbolTable.addContext();
     }
 
 
     @Override
     public void exitInstruction(InstructionContext ctx) {
+        
         if(!(ctx.getChild(0) instanceof Block_of_codeContext)) {
             if (ctx.getParent() instanceof For_stmtContext | ctx.getParent() instanceof If_stmtContext  | ctx.getParent() instanceof Else_stmtContext | ctx.getParent() instanceof While_stmtContext) {
                 delContext();
@@ -426,10 +446,9 @@ public class Listener extends compiladoresBaseListener{
             warningMessage += ("\nWarning: Unused " + symbolTable.getUnusedID()); 
         }
  
-        //The prototypes defined in this context lose their scope, therefore it is verified if they were
-        // used and not initialized
+        // The prototypes defined in this context lose their scope, therefore it is verified if they were used and not initialized
         if(!symbolTable.getUsedUninitialized().isEmpty()) {
-            throw new RuntimeException("error: undefined reference to '" + symbolTable.getUsedUninitialized().get(0) + "'");
+            throw new RuntimeException("Error: undefined reference to '" + symbolTable.getUsedUninitialized().get(0) + "'");
         }
 
         symbolTable.delContext();
@@ -438,6 +457,7 @@ public class Listener extends compiladoresBaseListener{
 
     // Compare two lists to check if the parameters we want are the same as the ones we have
     public <T> Boolean compareLists(LinkedList <T> list1, LinkedList<T> list2) {
+        
         if(list1.size()!= list2.size()) {
             return false;
         }
@@ -455,6 +475,7 @@ public class Listener extends compiladoresBaseListener{
     // General error in the listener
     @Override
     public void visitErrorNode(ErrorNode node) {
+        
         throw new RuntimeException("Error");
     }
 

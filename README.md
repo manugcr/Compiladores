@@ -72,6 +72,8 @@ WS                  : [ \n\t\r] -> skip                                 ;
 OTHER
 ```
 
+La palabra FRAGMENT hace referencia a no quiere que la expresion regular sea un TOKEN si no que quiero que sea parte de otro TOKEN, por ejemplo la expresion regular INT no es un TOKEN si no que es parte de otro TOKEN que es TYPE.
+
 # Analisis sintactico o parsing
 El analisis sintactico es la segunda fase de un compilador, su funcion es analizar la estructura del codigo fuente y comprobar que cumpla con la gramatica del lenguaje. El analizador sintactico recibe los tokens del analizador lexico y los analiza para comprobar que cumplan con la gramatica del lenguaje. La gramatica del lenguaje se define mediante reglas recursivas, donde el resultado sera una jerarquia de tokens represnetados en forma de arbol. Si el analizador sintactico encuentra un error en el codigo fuente, este debe detenerse y mostrar el error encontrado.
 
@@ -85,6 +87,10 @@ else_stmt   : ELSE IF O_PAREN logical_arithmetic_expression C_PAREN instruction 
             |
             ;
 ```
+
+A traves de ANTLR podemos visualizar el `railroad` de las reglas gramaticales que definimos en nuestro archivo compiladores.g4, esto nos permite visualizar de forma grafica la jerarquia de tokens que se generan a partir de las reglas gramaticales. Por ejemplo para la regla ID se generaria el siguiente arbol:
+
+![](./imgs/ID_railroad.png)
 
 Conceptualmente se puede ver la fase del analisis lexico y sintactico como dos fases diferentes, pero en el momento de la ejecucion el compilador puede ejecutar estas dos etapas en forma conjunta. El analizador sintactico solicita los nuevos tokens al analizador lexico a medida que los va necesitando.
 
@@ -163,7 +169,9 @@ label l0
 label l1
 ```
 
-Para poder generar este codigo utilizamos el visitor que nos provee ANTLR, el cual recorre el arbol sintactico y va visitando los nodos en particular.
+Para poder generar este codigo utilizamos el visitor que nos provee ANTLR, el cual recorre el arbol sintactico y va visitando los nodos en particular. Tambien necesitamos hacer uso de un generador de variables temportales (t0, t1, t2, ...) donde se almacenan los resultados de las operaciones, y un generador de etiquetas (labels) para los saltos condicionales en nuestro codigo, la implementacion de estos dos generadores es muy sencilla y similar, ya que solo necesitamos un contador que se incremente cada vez que se necesite una nueva variable temporal o etiqueta.
+
+![](./imgs/Generadores.png)
 
 ---
 
