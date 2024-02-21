@@ -19,6 +19,7 @@ package compiladores;
 import java.util.LinkedList;
 
 public class VariableGenerator {
+    
     private static VariableGenerator instance;
     private int count;
     private LinkedList<String> variables;

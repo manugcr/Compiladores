@@ -22,7 +22,20 @@ En resumen, dado un código fuente de entrada el programa deberá generar dos ar
 - Las tablas de simoblos para cada contexto.
 - La version en codigo de tres direcciones del codigo fuente de entrada.
 
-[Compilador base de cursada](https://github.com/meschoyez/BaseCompiladores)
+### Implementacion
+Para el desarrollo del compilador se llevo a cabo una implementacion separada en diferentes partes, siguiendo la siguiente hoja de ruta:
+ 
+1 - Reglas lexicas y gramaticales.
+2 - Configuracion de Listener
+3 - Implementacion de tabla de simbolos
+4 - Configuracion de Visitor
+5 - Generacion de codigo intermedio (codigo TAC)
+6 - Optimizacion de codigo intermedio
+
+### Links relevantes
+[Compilador base de la cursada. - (Github)](https://github.com/meschoyez/BaseCompiladores)
+[How do computers read code? - (Youtube)](https://youtu.be/QXjU9qTsYCc?si=kcTE7655CQoSiXps) by Frame of Essence
+[Comparing C to machine language - (Youtube)](https://www.youtube.com/watch?v=yOyaJXpAYZQ) by Ben Eater.
 
 ---
 
