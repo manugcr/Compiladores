@@ -34,7 +34,8 @@ public class CodeOptimizer {
          */ 
 
         // Remove redundant assignments
-
+        String[] lines = inputCode.split("\n");
+        
 
         // Save optimized code to filePath.
         File file = new File(filePath);

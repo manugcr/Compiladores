@@ -32,6 +32,9 @@ Para el desarrollo del compilador se llevo a cabo una implementacion separada en
 5 - Generacion de codigo intermedio (codigo TAC)
 6 - Optimizacion de codigo intermedio
 
+![](./imgs/AppUML.png)
+*Fig 1. Diagrama UML simplificado del compilador*
+
 ### Links relevantes
 [Compilador base de la cursada. - (Github)](https://github.com/meschoyez/BaseCompiladores)
 [How do computers read code? - (Youtube)](https://youtu.be/QXjU9qTsYCc?si=kcTE7655CQoSiXps) by Frame of Essence
@@ -47,6 +50,7 @@ Un compilador es un programa que traduce codigo escrito en un lenguaje de progra
 La compilacion es un proceso lineal que se divide en etapas, cada etapa se estructura en diferentes fases que cada una realiza una tarea correspondiente. En este trabajo nosostros nos centraremos en el proceso del analisis lexico, sintactico y semantico, pero tambien la generacion del codigo intermedio con una optimizacion basica. No se realizaran las partes de etapa de generacion y optimizacion de codigo objetivo.
 
 ![](./imgs/Etapas_de_compilacion.png)
+*Fig 2. Etapas de compilacion.*
 
 ## ANTLR
 Para desarrollar este compilador se utilizara ANTLR (Another Tool For Language Recognition). Es una herramienta que se encarga de generar scanners, parsers y tree parsers automatizando la construccion de reconocedores de lenguaje, genera parsers de tipo recursivo descendente para el lenguaje deseado. La funcion principal del ANTLR es facilitar el trabajo al programador, automatizando aquellas tareas mas complicadas que forman parte del proceso de reconocimiento lexico y sintactico de un lenguaje.
@@ -104,6 +108,7 @@ else_stmt   : ELSE IF O_PAREN logical_arithmetic_expression C_PAREN instruction 
 A traves de ANTLR podemos visualizar el `railroad` de las reglas gramaticales que definimos en nuestro archivo compiladores.g4, esto nos permite visualizar de forma grafica la jerarquia de tokens que se generan a partir de las reglas gramaticales. Por ejemplo para la regla ID se generaria el siguiente arbol:
 
 ![](./imgs/ID_railroad.png)
+*Fig 3. Diagrama logico generado en el .g4*
 
 Conceptualmente se puede ver la fase del analisis lexico y sintactico como dos fases diferentes, pero en el momento de la ejecucion el compilador puede ejecutar estas dos etapas en forma conjunta. El analizador sintactico solicita los nuevos tokens al analizador lexico a medida que los va necesitando.
 
@@ -130,6 +135,7 @@ La tabla de simbolos es uno de los elementos mas importantes en un compilador, s
 La tabla de simbolos se puede implementar de diferentes formas, en este trabajo se utilizara una tabla de simbolos implementada como una lista enlazada. Cada nodo de la lista contendra la informacion de una variable o funcion, como el nombre, el tipo, el alcance, etc.
 
 ![](./imgs/symTableUML.png)
+*Fig 4. Diagrama UML de la tabla de simbolos*
 
 La implementacion se puede ver en el diagrama UML donde se utilizo una LinkedList de HashMaps para almacenar la informacion de las variables y funciones, al que es posible acceder mediante un token o valor. Y es el Listener el encargado de llenar nuestra tabla de simbolos al recorrer el arbol sintactico y llegar a una funcion de exit().
 
@@ -185,12 +191,26 @@ label l1
 Para poder generar este codigo utilizamos el visitor que nos provee ANTLR, el cual recorre el arbol sintactico y va visitando los nodos en particular. Tambien necesitamos hacer uso de un generador de variables temportales (t0, t1, t2, ...) donde se almacenan los resultados de las operaciones, y un generador de etiquetas (labels) para los saltos condicionales en nuestro codigo, la implementacion de estos dos generadores es muy sencilla y similar, ya que solo necesitamos un contador que se incremente cada vez que se necesite una nueva variable temporal o etiqueta.
 
 ![](./imgs/Generadores.png)
+*Fig 5. Diagrama UML de los generadores de variables y labels.*
 
 ---
 
 # Optimizacion de codigo intermedio
 
+En la optimizacion de codigo intermedio lo que se busca es mejorar el codigo para que sea mas eficiente, es decir que se ejecute en menos tiempo o que ocupe menos memoria. La optimizacion de codigo intermedio se puede realizar de diferentes formas, en este trabajo se implemento una optimizacion basica que consiste en la eliminacion de instrucciones redundantes y la eliminacion de variables no utilizadas.
+
+![](./imgs/codeOpt.png)
+
+Una variable es redundante cuando su valor no se utiliza en ninguna otra operacion, y esta puede ser reemplazada por el valor que se le asigno. Por ejemplo:
+```
+t0 = 5;             t1 = 5
+t1 = t0;    --->    t2 = t1     --->    t2 = 5
+t2 = t1;
+```
+
+Para la eliminacion de variables no utilizadas ... (completar)
 
 ---
 
 # Ejemplo de ejecucion
+

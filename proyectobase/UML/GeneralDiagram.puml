@@ -1,0 +1,157 @@
+/'
+    This is a uml diagram of the whole compiler.
+    The classes Visitor and Listener are simplified.
+'/
+
+@startuml App
+
+hide circle
+
+class compiladores.App {
+    - compiladores.Listener listener
+    - ParseTree tree
+    - Visitor visitor
+    - CodeOptimizer optimizer
+    + void main(String[] args)
+}
+
+class compiladores.Listener {
+    - SymbolTable symbolTable
+    - String filePath
+    - String warningMessage
+    + void enterProgram(ProgramContext ctx)
+    + void exitProgram(ProgramContext ctx)
+}
+
+
+
+class compiladores.Visitor {
+    - VariableGenerator variableGenerator
+    - LabelGenerator labelGenerator
+    - LinkedList<String> operands
+    - String TAC
+    - String exitElseLabel
+    - int preOrPost
+    - String instruction
+    - String returnLabel
+    - String filePath
+    + Visitor()
+    + String visitProgram(ProgramContext ctx)
+}
+
+class compiladores.VariableGenerator <<singleton>> {
+    - static instance : VariableGenerator
+    - numberOfVariables : int
+    - variables : LinkedList<String>
+    + getInstanceOf() : VariableGenerator
+    + getNumberOfVariables() : int
+    + getVariables() : LinkedList<String>
+    + getLastVariable() : String
+    + getNewVariable() : String
+}
+
+class compiladores.LabelGenerator <<singleton>> {
+    - static instance : LabelGenerator
+    - numberOfLabels : int
+    - labels : LinkedList<String>
+    + getInstanceOf() : LabelGenerator
+    + getNumberOfLabels() : int
+    + getLabels() : LinkedList<String>
+    + getLastLabel() : String
+    + getNewLabel(labelType : String) : String
+}
+
+
+
+
+class compiladores.CodeOptimizer {
+    - inputCode: String
+    - outputCode: String
+    - filePath: String
+    + optimizeCode(): void
+    + cleanAssignments(): void
+    + cleanVariables(): void
+}
+
+
+
+
+class compiladores.SymbolTable <<singleton>> {
+    - table : LinkedList<Map<String,ID>  
+    + getInstanceOf() : SymbolTable
+    + addContext() : void
+    + delContext() : void
+    + addSymbol() : void
+    + searchSymbol() : ID
+    + searchLocalSymbol() : ID
+    + printSymbolTable() : void
+}
+
+enum compiladores.DataType <<enum>> {
+    INT
+    DOUBLE
+    CHAR
+    VOID 
+    STRING
+    BOOLEAN
+    + getDataType() : Datatype
+}
+
+abstract class compiladores.ID <<abstract>> {
+    - name : String
+    - dataType : DataType
+    - initialized : Boolean
+    - used : Boolean
+    + setName() : void
+    + getName() : String
+    + setDataType() : void
+    + getDataType() : DataType
+    + setUsed() : void
+    + getUsed() : Boolean
+    + setInitialized() : void
+    + getInitialized() : Boolean
+}
+
+class compiladores.Variable {
+    + Variable(name, dataType, used, initialized)
+}
+
+class compiladores.Function {
+    - args: LinkedList<Parameter>
+    - isPrototype: Boolean
+    + setArgs(): void
+    + getArgs(): LinkedList<Parameter>
+    + getDataTypeArgs(): LinkedList<DataType>
+    + addArg(): void
+    + setIsPrototype(): void
+    + getIsPrototype(): Boolean
+    + compareArgs(): Boolean
+}
+
+class compiladores.Parameter {
+    - dataType: DataType
+    - name: String
+    + getDataType(): DataType
+    + getName(): String
+    + setDataType(): void
+    + setName(): void
+}
+
+
+
+
+compiladores.SymbolTable --> compiladores.ID
+compiladores.ID <|-- compiladores.Variable
+compiladores.ID <|-- compiladores.Function
+compiladores.ID --> compiladores.DataType
+compiladores.Function <-- compiladores.Parameter
+compiladores.App --> compiladores.Listener  
+compiladores.App --> compiladores.Visitor  
+compiladores.App --> compiladores.CodeOptimizer  
+compiladores.Listener --> compiladores.SymbolTable  
+compiladores.Visitor -- compiladores.VariableGenerator
+compiladores.Visitor -- compiladores.LabelGenerator
+
+@enduml
+
+
