@@ -39,14 +39,9 @@ DIV                 : '/'       ;
 MOD                 : '%'       ;
 AND                 : '&&'      ;
 OR                  : '||'      ;
-EQUALS              : '=='      ;
-NOT_EQUALS          : '!='      ;
-LESS_THAN           : '<'       ;
-GREATER_THAN        : '>'       ;
-LESS_OR_EQUAL       : '<='      ;
-GREATER_OR_EQUAL    : '>='      ;
 INCREMENT           : '++'      ;
 DECREMENT           : '--'      ;
+CMP                 : ('==' | '!=' | '<' | '<=' | '>' | '>=')   ;
 
 RETURN              : 'return'  ;
 IF                  : 'if'      ;
@@ -170,12 +165,7 @@ logical_arithmetic_expression   : logic
  */
 logic   : logic AND logic
         | logic OR logic
-        | arithmetic_expression EQUALS arithmetic_expression
-        | arithmetic_expression NOT_EQUALS arithmetic_expression
-        | arithmetic_expression LESS_THAN arithmetic_expression
-        | arithmetic_expression GREATER_THAN arithmetic_expression
-        | arithmetic_expression LESS_OR_EQUAL arithmetic_expression
-        | arithmetic_expression GREATER_OR_EQUAL arithmetic_expression
+        | arithmetic_expression CMP arithmetic_expression
         | arithmetic_expression 
         ;
 

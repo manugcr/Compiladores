@@ -124,6 +124,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitCall_parameter(Call_parameterContext ctx) {
+        
         if(ctx.NUMBER() != null) {
             TAC += "\npush " + ctx.NUMBER().getText();
         }
@@ -172,7 +173,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
             if(preOrPost == 1)  {
                 TAC += instruction;
             }
-                
+             
             TAC += "\n" + newVariable + " = " + operands.pop(); 
             
             if (preOrPost == 2) {
@@ -408,14 +409,14 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     @Override
     public String visitWhile_stmt(While_stmtContext ctx) {
         
-        String entryLabel = labelGenerator.getNewLabel("whileEntry");
+        String entryLabel = labelGenerator.getNewLabel("lwhileEntry");
         TAC += "\n" + entryLabel + ":";
 
         visitLogical_arithmetic_expression(ctx.logical_arithmetic_expression());
         String condition = operands.pop();
         TAC += "\njnz " + condition;
 
-        String exitLabel = labelGenerator.getNewLabel("whileExit");
+        String exitLabel = labelGenerator.getNewLabel("lwhileExit");
         TAC += "\njmp " + exitLabel;
 
         visitInstruction(ctx.instruction());
@@ -441,12 +442,12 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         String condition = operands.pop();
         TAC += "\njnz " + condition;
 
-        String exitLabel = labelGenerator.getNewLabel("ifExit");
+        String exitLabel = labelGenerator.getNewLabel("lifExit");
         TAC += "\njmp " + exitLabel;
 
         visitInstruction(ctx.instruction());
 
-        exitElseLabel = labelGenerator.getNewLabel("elseIfExit");
+        exitElseLabel = labelGenerator.getNewLabel("lelseIfExit");
         TAC += "\njmp " + exitElseLabel;
         TAC += "\n" + exitLabel + ":";
 
@@ -466,7 +467,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
             String condition = operands.pop();
             TAC += "\njnz " + condition;
 
-            String exitIfLabel = labelGenerator.getNewLabel("ifExit");
+            String exitIfLabel = labelGenerator.getNewLabel("lifExit");
             TAC += "\njmp " + exitIfLabel;
 
             visitInstruction(ctx.instruction());
@@ -541,15 +542,14 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         
         visitCall_parameters_list(ctx.call_parameters_list());
 
-        String returnLabel = labelGenerator.getNewLabel("return");
+        String returnLabel = labelGenerator.getNewLabel("lreturn");
         TAC += "\npush " + returnLabel;
         TAC += "\njmp " + ctx.ID().getText();
         TAC += "\n" + returnLabel + ":";
-
         if (ctx.getParent() instanceof FactorContext) {
             String returnValue = variableGenerator.getNewVariable();
             TAC += "\npop " + returnValue;
-            operands.push(returnLabel);
+            operands.push(returnValue);
         }
 
         return TAC;
@@ -564,7 +564,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         
         String entryLabel = ctx.ID().getText();
         TAC += "\n" + entryLabel + ":";
-        returnLabel = labelGenerator.getNewLabel("return");
+        returnLabel = labelGenerator.getNewLabel("lreturn");
         TAC += "\npop " + returnLabel;
 
         if (ctx.parameters_list().ID() != null) {
@@ -593,7 +593,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         
         visitFor_declaration(ctx.for_declaration());
         
-        String entryLabel = labelGenerator.getNewLabel("forEntry");
+        String entryLabel = labelGenerator.getNewLabel("lforEntry");
         TAC += "\n" + entryLabel + ":";
 
         visitFor_condition(ctx.for_condition());
@@ -601,7 +601,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         String condition = operands.pop();
         TAC += "\njnz " + condition; 
 
-        String outLabel = labelGenerator.getNewLabel("forExit");
+        String outLabel = labelGenerator.getNewLabel("lforExit");
         TAC += "\njmp " + outLabel;
 
         visitInstruction(ctx.instruction());
