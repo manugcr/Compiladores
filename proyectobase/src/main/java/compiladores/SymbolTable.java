@@ -22,17 +22,18 @@
     
 package compiladores;
 
-import java.util.List;
-import java.util.LinkedList;
 import java.util.Map;
+import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.LinkedHashMap;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.BufferedWriter;
 
 public class SymbolTable {
+    
     private LinkedList<Map<String, ID>> list;
     private static SymbolTable instace;
 
@@ -40,7 +41,7 @@ public class SymbolTable {
         this.list = new LinkedList<Map<String, ID>>();
     }
 
-    
+
     public static SymbolTable getInstanceOf() {
         if (instace == null) {
             instace = new SymbolTable();
@@ -109,33 +110,20 @@ public class SymbolTable {
         return usedUninitialized;
     }
 
-
-    public void printSymbolTable() {
-        System.out.println("----------------- Symbol Table -----------------");
-        System.out.println(String.format("%-20s%-10s%-6s%-12s\n", "NAME", "TYPE", "USED", "INITIALIZED"));
-        for (Map<String, ID> map : this.list) {
-            for (ID id : map.values()) {
-                String name = id.getName();
-                DataType type = id.getDataType();
-                String used = String.valueOf(id.getUsed());
-                String initialized = String.valueOf(id.getInitialized());
-                System.out.println(String.format("%-20s%-10s%-6s%-12s\n", name, type, used, initialized));  
-            }
-        }
-    }
-
-
     public void saveSymbolTable(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write("----------------- Symbol Table -----------------\n");
-            writer.write(String.format("%-20s%-10s%-6s%-12s\n", "NAME", "TYPE", "USED", "INITIALIZED"));
+            writer.write("\n----------------- Symbol Table -------------------------\n");
+            writer.write(String.format("%-15s%-10s%-10s%-15s%-20s\n", "NAME", "TYPE", "USED", "INITIALIZED", "VALUE"));
+            writer.write("--------------------------------------------------------\n");
             for (Map<String, ID> map : this.list) {
                 for (ID id : map.values()) {
                     String name = id.getName();
                     DataType type = id.getDataType();
                     String used = String.valueOf(id.getUsed());
                     String initialized = String.valueOf(id.getInitialized());
-                    writer.write(String.format("%-20s%-10s%-6s%-12s\n", name, type, used, initialized));
+                    String value = id.getValue();
+                    
+                    writer.write(String.format("%-15s%-10s%-10s%-15s%-20s\n", name, type, used, initialized, value));
                 }
             }
         } catch (Exception e) {
@@ -143,7 +131,6 @@ public class SymbolTable {
         }
     }
     
-
 
     public void delFile(String filePath) {
         File file = new File(filePath);

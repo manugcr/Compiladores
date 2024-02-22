@@ -4,6 +4,14 @@
  * Each new label is named by appending the current count to a base string "l", and the count is then incremented.
  * A label is a reference point in the TAC that is used for control flow, such as branching and looping for GOTO instructions.
  * 
+ * Example:
+ *          START:  x = 5++
+ *                  y = 10
+ *                  jnz (x < y) 
+ *                  goto END
+ *                  goto START
+ *          END:    print z
+ * 
  * Here's a brief overview of its methods:
  * - getInstanceOf(): This static method returns the singleton instance of the LabelGenerator class. If the instance doesn't exist, it creates one.
  * - getNumberOfLabels(): This method returns the current count of labels.

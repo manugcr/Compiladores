@@ -1,0 +1,22 @@
+main:
+pop return0
+var1 = 3
+var2 = 4*5
+push var1
+push var2
+push return1
+jmp addition
+return1:
+pop t3
+result = return1
+result = result+1
+t6 = 0
+push t6
+jmp return0
+addition:
+pop return2
+pop b
+pop a
+t8 = a+b
+push t8
+jmp return2

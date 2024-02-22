@@ -4,6 +4,13 @@
  * Each new variable is named by appending the current count to a base string "t", and the count is then incremented.
  * A variable is a temporary storage location for intermediate values in the TAC.
  * 
+ * Example: Here t0, t1, and t2 are variables.
+ * 
+ *          t0 = 3 * y
+ *          t1 = x + t0
+ *          t2 = 2 * t1
+ *          z = t2
+ * 
  * Here's a brief overview of its methods:
  * - getInstanceOf(): This static method returns the singleton instance of the VariableGenerator class. If the instance doesn't exist, it creates one.
  * - getNumberOfVariables(): This method returns the current count of variables.

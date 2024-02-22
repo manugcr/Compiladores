@@ -1,0 +1,14 @@
+@startuml CodeOptimizer
+
+hide circle
+
+class CodeOptimizer {
+    - code: String
+    - optimizedCode: String
+    + optimize(): void
+    + getCode(): String
+    + setCode(code: String): void
+    + getOptimizedCode(): String
+}
+
+@enduml

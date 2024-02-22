@@ -25,6 +25,7 @@ package compiladores;
 import java.util.LinkedList;
 
 class Parameter {
+    
     private DataType dataType;
     private String name;
 

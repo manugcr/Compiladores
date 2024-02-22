@@ -19,13 +19,17 @@
  * 
  * Concrete subclasses of ID may extend this class to include additional properties or behavior specific to different
  * types of identifiers (e.g., functions may have parameters and return types).
+ * 
+ * The ID class is abstract because it represents a generic identifier in your symbol table.
  */
 
 
 package compiladores;
 
 public abstract class ID {
+    
     String name;
+    String value;
     DataType dataType;
     Boolean used;
     Boolean initialized;
@@ -60,5 +64,13 @@ public abstract class ID {
 
     public Boolean getInitialized() {
         return this.initialized;
+    }
+
+    public void setValue(String valor) {
+        this.value = valor;
+    }
+
+    public String getValue() {
+        return this.value;
     }
 }

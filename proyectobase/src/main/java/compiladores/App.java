@@ -5,7 +5,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-// Las diferentes entradas se explicaran oportunamente
 public class App {
     public static void main(String[] args) throws Exception {
 
@@ -31,17 +30,17 @@ public class App {
         // En este caso la regla es el simbolo inicial
         ParseTree tree = null;
         try {
+            // Comenzamos el parseo por la regla inicial
             tree = parser.program();
 
-            // Conectamos el visitor
+            // Conectamos el visitor y creamos el codigo intermedio
             Visitor visitor = new Visitor();
-            visitor.visit(tree);
-            // System.out.println(visitor);
-            // System.out.println(visitor.getErrorNodes());
+            String TAC = visitor.visit(tree);
 
-            // Imprime el arbol obtenido
-            // System.out.println(tree.toStringTree(parser));
-            // System.out.println(listener);
+            // Optimizamos el código
+            CodeOptimizer optimizer = new CodeOptimizer(TAC);
+            optimizer.optimizeCode();
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(1);

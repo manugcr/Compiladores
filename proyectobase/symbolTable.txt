@@ -1,0 +1,23 @@
+
+----------------- Symbol Table -------------------------
+NAME           TYPE      USED      INITIALIZED    VALUE               
+--------------------------------------------------------
+addition       INT       true      false          null                
+main           INT       true      true           null                
+var1           INT       true      true           3                   
+var2           INT       true      true           4*5                 
+result         INT       true      true           addition(var1,var2) 
+
+----------------- Symbol Table -------------------------
+NAME           TYPE      USED      INITIALIZED    VALUE               
+--------------------------------------------------------
+addition       INT       true      true           null                
+main           INT       true      true           null                
+a              INT       true      true           null                
+b              INT       true      true           null                
+
+----------------- Symbol Table -------------------------
+NAME           TYPE      USED      INITIALIZED    VALUE               
+--------------------------------------------------------
+addition       INT       true      true           null                
+main           INT       true      true           null                
