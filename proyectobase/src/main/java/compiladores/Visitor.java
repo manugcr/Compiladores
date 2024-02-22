@@ -120,7 +120,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
     /*
-     * 
+     * Everytime we call a function, we need to push the parameters to the stack.
      */
     @Override
     public String visitCall_parameter(Call_parameterContext ctx) {
@@ -165,7 +165,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     @Override
     public String visitLogic(LogicContext ctx) {
         
-        if(ctx.getChild(1) == null) { //arithmetic_expression
+        if(ctx.getChild(1) == null) { 
             visitArithmetic_expression(ctx.arithmetic_expression(0)); 
 
             String newVariable = variableGenerator.getNewVariable();
@@ -220,7 +220,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
     
-    // Enter the arithmetic expression node, who has only one children with recursion.
+    /*
+     * Enter the arithmetic expression node, who has only one children with recursion.
+     */
     @Override
     public String visitArithmetic_expression(Arithmetic_expressionContext ctx) {
         
@@ -260,12 +262,11 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     @Override
     public String visitAf(AfContext ctx) {
         
-
         String firstOperand;
 
         if(ctx.factor() != null) {
             firstOperand = operands.pop();
-            visitFactor(ctx.factor()); //Return with an operand in operands list
+            visitFactor(ctx.factor());
         }
         else 
             return TAC;
@@ -329,7 +330,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     
 
 
-    // Enter the assignments node, an assignment is a sequence of assignments.
+    /*
+     * Enter the assignments node, an assignment is a sequence of assignments.
+     */
     @Override
     public String visitAssignments(AssignmentsContext ctx) {
         
@@ -353,7 +356,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
-    // Enter the statements node, a statements has different types of statements.
+    /*
+     * Enter the statements node, a statements has different types of statements.
+     */
     @Override
     public String visitStatement(StatementContext ctx) {
         
@@ -385,8 +390,10 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
-    // Enter the return statement node, who has a logical arithmetic expression as a child.
-    // We should obtain the value of the expression and push it to the stack.
+    /*
+     * Enter the return statement node, who has a logical arithmetic expression as a child.
+     * We should obtain the value of the expression and push it to the stack.
+     */ 
     @Override
     public String visitReturn_stmt(Return_stmtContext ctx) {
         
@@ -402,10 +409,12 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
-    // A while statement is a node that contains a logical arithmetic expression and a instruction.
-    // 1. We should first declare the entry label where we are gonna jump if the condition is true.
-    // 2. We get the logical arithmetic expression that tests the condition.
-    // 3. Then we should declare the exit label where we are gonna jump if the condition is false.
+    /*  
+     * A while statement is a node that contains a logical arithmetic expression and a instruction.
+     * 1. We should first declare the entry label where we are gonna jump if the condition is true.
+     * 2. We get the logical arithmetic expression that tests the condition.
+     * 3. Then we should declare the exit label where we are gonna jump if the condition is false.
+     */
     @Override
     public String visitWhile_stmt(While_stmtContext ctx) {
         
@@ -430,11 +439,13 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
-    // Enter the if statement node, who has a logical arithmetic expression, an instruction and condition
-    // 1. Get the logical arithmetic expression that tests the condition.
-    // 2. Then we should declare the exit label where we are gonna jump if the condition is false.
-    // 3. We should declare the exit label for the else statement.
-    // 4. We should declare the exit label for the else if statement.
+    /*
+     * Enter the if statement node, who has a logical arithmetic expression, an instruction and condition
+     * 1. Get the logical arithmetic expression that tests the condition.
+     * 2. Then we should declare the exit label where we are gonna jump if the condition is false.
+     * 3. We should declare the exit label for the else statement.
+     * 4. We should declare the exit label for the else if statement.
+     */
     @Override
     public String visitIf_stmt(If_stmtContext ctx) {
             
@@ -487,11 +498,13 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
-    // Enter the inc_dec node, who has only one children with recursion.
-    // 1. Test if it is a pre increment/decrement or a post increment/decrement.
-    // 2. Get the id of the variable.
-    // 3. Generate the instruction.
-    // 4. Push the id to the stack.
+    /*
+     * Enter the inc_dec node, who has only one children with recursion.
+     * 1. Test if it is a pre increment/decrement or a post increment/decrement.
+     * 2. Get the id of the variable.
+     * 3. Generate the instruction.
+     * 4. Push the id to the stack.
+     */
     @Override
     public String visitInc_dec(Inc_decContext ctx) {
         
@@ -521,7 +534,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
-    // Enter the function statement node, who has a function declaration and a block of code.
+    /* 
+     * Enter the function statement node, who has a function declaration and a block of code. 
+     */
     @Override
     public String visitFunction_stmt(Function_stmtContext ctx) {
         
@@ -536,7 +551,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     
     
     
-    // Enter the function call node, who has a call parameters list.
+    /*
+     * Enter the function call node, who has a call parameters list.
+     */
     @Override
     public String visitFunction_call(Function_callContext ctx) {
         
@@ -558,7 +575,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     
     
     
-    // Enter the call parameters list node, who has a sequence of call parameters.
+    /*
+     * Enter the call parameters list node, who has a sequence of call parameters.
+     */
     @Override
     public String visitFunction_declaration(Function_declarationContext ctx) {
         
