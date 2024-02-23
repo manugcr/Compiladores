@@ -8,12 +8,14 @@
 hide circle
 
 class compiladores.App {
-    - compiladores.Listener listener
-    - ParseTree tree
+    - Listener listener
     - Visitor visitor
     - CodeOptimizer optimizer
     + void main(String[] args)
 }
+
+
+
 
 class compiladores.Listener {
     - SymbolTable symbolTable
@@ -22,6 +24,7 @@ class compiladores.Listener {
     + void enterProgram(ProgramContext ctx)
     + void exitProgram(ProgramContext ctx)
 }
+
 
 
 
@@ -149,8 +152,8 @@ compiladores.App --> compiladores.Listener
 compiladores.App --> compiladores.Visitor  
 compiladores.App --> compiladores.CodeOptimizer  
 compiladores.Listener --> compiladores.SymbolTable  
-compiladores.Visitor -- compiladores.VariableGenerator
-compiladores.Visitor -- compiladores.LabelGenerator
+compiladores.Visitor --> compiladores.VariableGenerator
+compiladores.Visitor --> compiladores.LabelGenerator
 
 @enduml
 
