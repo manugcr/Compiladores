@@ -20,9 +20,6 @@ public class CodeOptimizer {
 
         // Remove redundant assignments
         cleanAssignments();
-
-        // Remove unused variables
-        cleanVariables();
         
         // Save optimized code to filePath.
         File file = new File(filePath);
@@ -43,24 +40,24 @@ public class CodeOptimizer {
 
     /*
      * Remove redundant assignments.
-     * For example:
-     *      t0 = 5;             t1 = 5
-     *      t1 = t0;    --->    t2 = t1     --->    t2 = 5
-     *      t2 = t1;
      * 
-     * We search for the pattern t_n = val and replace all the ocurrences of t_n with val.
+     * For example if we start with:
+     * 
+     *      t0 = 5
+     *      t1 = t0
+     *      var1 = t1
+     * 
+     * We should end with:
+     * 
+     *      var1 = 5
+     * 
+     * Search for the pattern t_n = x and replace all occurrences of t_n with x.
+     * The we should delete the line t_n = x and lines containing unnecessary assignments except the last one.
+     * Only leaving the last assignment for example var1 in this case.
      */
     private void cleanAssignments() {
-        String[] lines = inputCode.split("\n");
-        
-        for (String line : lines) {
-            
-
-            outputCode += line + "\n";
-        }
 
     }
-    
 
 
     /*

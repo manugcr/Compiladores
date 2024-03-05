@@ -1,5 +1,6 @@
 int addition(int a, int b);
 
+
 int main() {
     int var1 = 3;
     int var2;
@@ -8,7 +9,6 @@ int main() {
 
     int result = addition(var1, var2);
     result++;
-    
 
     return 0;    
 }
