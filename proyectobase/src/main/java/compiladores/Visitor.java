@@ -1,8 +1,6 @@
 /*
  * A visitor class that walks through the parse tree and generates the intermediate code.
- * 
- * .....
- * 
+ * We look for tree nodes that are of interest to us and generate the intermediate code.
  */
 
 
@@ -76,6 +74,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         System.out.println("visitProgram()");
         
         visitChildren(ctx);
+
         File file = new File(filePath);
         if (file.exists()) {
             file.delete();
@@ -86,7 +85,6 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         System.out.println("Intermediate code has been generated and saved in " + filePath);
         System.out.println("\n ----------- Visitor ends --------------\n\n");
@@ -100,10 +98,25 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     /*
      * Walk through the instructions of the program. An instruction is a sequence of instructions.
      * Allowed instructions are declared in the grammar file.
+     * 
+     *  instructions    : instruction instructions
+     *                  |
+     *                  ;
+     * 
+     *  instruction : block_of_code
+     *              | statement 
+     *              | assignments SEMICOLON 
+     *              | return_stmt
+     *              | if_stmt
+     *              | while_stmt
+     *              | for_stmt
+     *              | function_call SEMICOLON
+     *              | logical_arithmetic_expression SEMICOLON
+     *              | function_stmt 
+     *              ;
      */
     @Override
     public String visitInstructions(InstructionsContext ctx) {
-        System.out.println("visitInstructions()");
         visitChildren(ctx);
         return TAC;
     }
@@ -120,6 +133,18 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     /*
      * Everytime we call a function, we need to push the parameters to the stack.
+     * 
+     *   call_parameters_list   : call_parameter
+     *                          | call_parameter COMMA call_parameters_list
+     *                          |
+     *                          ;
+     *
+     *   call_parameter : NUMBER
+     *                  | ID
+     *                  | inc_dec
+     *                  | function_call
+     *                  | logical_arithmetic_expression
+     *                  ;
      */
     @Override
     public String visitCall_parameter(Call_parameterContext ctx) {
@@ -154,6 +179,15 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     /*
      * Enter a logical arithmetic expression node, that is a node that contains a logical expression.
+     * 
+     *  logical_arithmetic_expression   : logic
+     *                                  ;
+     * 
+     *  logic   : logic AND logic
+     *          | logic OR logic
+     *          | arithmetic_expression CMP arithmetic_expression
+     *          | arithmetic_expression 
+     *          ;
      */
     @Override
     public String visitLogical_arithmetic_expression(Logical_arithmetic_expressionContext ctx) {
@@ -222,6 +256,30 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     
     /*
      * Enter the arithmetic expression node, who has only one children with recursion.
+     * 
+     *   arithmetic_expression  : a_term at
+     *                          ;
+     *
+     *   a_term                 : factor af
+     *                          ;
+     *
+     *   at                     : ADD a_term at
+     *                          | SUB a_term at
+     *                          |
+     *                          ;
+     *
+     *   factor                 : NUMBER
+     *                          | ID
+     *                          | O_PAREN logical_arithmetic_expression C_PAREN
+     *                          | inc_dec
+     *                          | function_call
+     *                          ;
+     *
+     *   af                     : MULT factor af
+     *                          | DIV factor af
+     *                          | MOD factor af
+     *                          |
+     *                          ;
      */
     @Override
     public String visitArithmetic_expression(Arithmetic_expressionContext ctx) {
@@ -332,6 +390,13 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     /*
      * Enter the assignments node, an assignment is a sequence of assignments.
+     * 
+     *   assignments : assignment COMMA assignments
+     *               | assignment
+     *               ;
+     *
+     *   assignment  : ID EQUAL logical_arithmetic_expression 
+     *               ;
      */
     @Override
     public String visitAssignments(AssignmentsContext ctx) {
@@ -358,6 +423,17 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     /*
      * Enter the statements node, a statements has different types of statements.
+     * 
+     *   statement              : TYPE statements SEMICOLON ;
+     *
+     *   statements             : ID COMMA statements   
+     *                          | ID
+     *                          | statement_with_assign COMMA statements
+     *                          | statement_with_assign
+     *                          ;
+     *
+     *   statement_with_assign  : ID EQUAL logical_arithmetic_expression
+     *                          ;
      */
     @Override
     public String visitStatement(StatementContext ctx) {
@@ -394,6 +470,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     /*
      * Enter the return statement node, who has a logical arithmetic expression as a child.
      * We should obtain the value of the expression and push it to the stack.
+     * 
+     *   return_stmt    : RETURN logical_arithmetic_expression SEMICOLON
+     *                  ;
      */ 
     @Override
     public String visitReturn_stmt(Return_stmtContext ctx) {
@@ -415,6 +494,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      * 1. We should first declare the entry label where we are gonna jump if the condition is true.
      * 2. We get the logical arithmetic expression that tests the condition.
      * 3. Then we should declare the exit label where we are gonna jump if the condition is false.
+     * 
+     *   while_stmt  : WHILE O_PAREN logical_arithmetic_expression C_PAREN (instruction | SEMICOLON) 
+     *               ;
      */
     @Override
     public String visitWhile_stmt(While_stmtContext ctx) {
@@ -446,6 +528,14 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      * 2. Then we should declare the exit label where we are gonna jump if the condition is false.
      * 3. We should declare the exit label for the else statement.
      * 4. We should declare the exit label for the else if statement.
+     * 
+     *   if_stmt    : IF O_PAREN logical_arithmetic_expression C_PAREN instruction else_stmt
+     *              ;
+     *
+     *   else_stmt  : ELSE IF O_PAREN logical_arithmetic_expression C_PAREN instruction else_stmt
+     *              | ELSE instruction
+     *              |
+     *              ;
      */
     @Override
     public String visitIf_stmt(If_stmtContext ctx) {
@@ -505,6 +595,12 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      * 2. Get the id of the variable.
      * 3. Generate the instruction.
      * 4. Push the id to the stack.
+     * 
+     *   inc_dec    : ID '++'
+     *              | ID '--'
+     *              | '--' ID
+     *              | '++' ID
+     *              ;
      */
     @Override
     public String visitInc_dec(Inc_decContext ctx) {
@@ -537,6 +633,10 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     /* 
      * Enter the function statement node, who has a function declaration and a block of code. 
+     * 
+     *   function_stmt  : function_declaration block_of_code
+     *                  | function_prototype
+     *                  ;
      */
     @Override
     public String visitFunction_stmt(Function_stmtContext ctx) {
@@ -555,6 +655,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     
     /*
      * Enter the function call node, who has a call parameters list.
+     * 
+     *   function_call  : ID O_PAREN call_parameters_list C_PAREN
+    *                   ;
      */
     @Override
     public String visitFunction_call(Function_callContext ctx) {
@@ -579,6 +682,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     /*
      * Enter the call parameters list node, who has a sequence of call parameters.
+     * 
+     *   function_declaration   : TYPE ID O_PAREN parameters_list C_PAREN
+     *                          ;
      */
     @Override
     public String visitFunction_declaration(Function_declarationContext ctx) {
@@ -595,6 +701,27 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         return TAC;
     }
 
+
+
+    /*
+     *   for_stmt        : FOR O_PAREN for_declaration for_condition for_update C_PAREN (instruction | SEMICOLON)
+     *                   ;
+     *
+     *   for_declaration : statement
+     *                   | assignment SEMICOLON
+     *                   | SEMICOLON
+     *                   ;
+     *
+     *   for_condition   : logical_arithmetic_expression SEMICOLON
+     *                   | SEMICOLON
+     *                   ;
+     *
+     *   for_update      : logical_arithmetic_expression COMMA for_update
+     *                   | logical_arithmetic_expression
+     *                   | assignments
+     *                   |
+     *                   ;
+     */
     @Override
     public String visitFor_condition(For_conditionContext ctx) {
         System.out.println("visitFor_condition()");

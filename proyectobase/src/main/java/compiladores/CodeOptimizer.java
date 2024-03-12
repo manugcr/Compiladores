@@ -20,6 +20,7 @@ public class CodeOptimizer {
 
         // Remove redundant assignments
         cleanAssignments();
+        cleanVariables();
         
         // Save optimized code to filePath.
         File file = new File(filePath);
