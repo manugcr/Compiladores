@@ -73,6 +73,7 @@ public class Listener extends compiladoresBaseListener{
         symbolTable.addContext();
     }
     
+    
     /*
      * Final rule. 
      *  - We need to log the symbol table and then check for erros and warnings.

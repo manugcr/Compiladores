@@ -55,7 +55,6 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     private String filePath = "./intermediateCode.txt";
 
     public Visitor() {
-        
         this.variableGenerator = VariableGenerator.getInstanceOf();
         this.labelGenerator = LabelGenerator.getInstanceOf();
         this.operands = new LinkedList<String>();
@@ -74,9 +73,9 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     public String visitProgram(ProgramContext ctx) {
         
         System.out.println("\n ----------- Visitor begins ------------\n");
+        System.out.println("visitProgram()");
         
         visitChildren(ctx);
-        System.out.println("visitProgram()");
         File file = new File(filePath);
         if (file.exists()) {
             file.delete();
@@ -391,6 +390,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
 
 
+
     /*
      * Enter the return statement node, who has a logical arithmetic expression as a child.
      * We should obtain the value of the expression and push it to the stack.
@@ -550,6 +550,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         return TAC;
     }
     
+
     
     
     /*
@@ -573,8 +574,8 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         return TAC;
     }
     
-    
-    
+
+
     
     /*
      * Enter the call parameters list node, who has a sequence of call parameters.
