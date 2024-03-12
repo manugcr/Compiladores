@@ -54,7 +54,7 @@ import compiladores.compiladoresParser.Statement_with_assignContext;
 public class Listener extends compiladoresBaseListener{
 
     private SymbolTable symbolTable = SymbolTable.getInstanceOf();
-    String filePath = "./symbolTable.txt";
+    String filePath = "./output/symbolTable.txt";
     String warningMessage = "";
 
 

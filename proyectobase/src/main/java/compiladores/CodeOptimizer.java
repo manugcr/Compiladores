@@ -8,7 +8,7 @@ public class CodeOptimizer {
     
     private String inputCode;
     private String outputCode;
-    private String filePath = "./optimizedCode.txt";
+    private String filePath = "./output/optimizedCode.txt";
 
     public CodeOptimizer(String inputCode) {
         this.inputCode = inputCode;

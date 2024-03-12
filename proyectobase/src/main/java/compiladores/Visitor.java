@@ -52,7 +52,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     private int preOrPost;
     private String instruction;
     private String returnLabel;
-    private String filePath = "./intermediateCode.txt";
+    private String filePath = "./output/intermediateCode.txt";
 
     public Visitor() {
         this.variableGenerator = VariableGenerator.getInstanceOf();
@@ -576,7 +576,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
     
 
 
-    
+
     /*
      * Enter the call parameters list node, who has a sequence of call parameters.
      */

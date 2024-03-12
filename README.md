@@ -138,6 +138,7 @@ int main() {
     int a = 5;
     char* b = "Hello";
     printf("%d\n", a+b);
+
     return 0;
 }
 ```
@@ -225,8 +226,8 @@ En la optimizacion de codigo intermedio lo que se busca es mejorar el codigo par
 Una variable es redundante cuando su valor no se utiliza en ninguna otra operacion, y esta puede ser reemplazada por el valor que se le asigno. Por ejemplo:
 ```
 t0 = 5;             t1 = 5
-t1 = t0;    --->    t2 = t1     --->    t2 = 5
-t2 = t1;
+t1 = t0;    --->    var1 = t1     --->    var1 = 5
+var1 = t1;
 ```
 
 Para la eliminacion de variables no utilizadas ... (completar)
