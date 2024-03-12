@@ -24,13 +24,13 @@ En resumen, dado un código fuente de entrada el programa deberá generar dos ar
 
 ### Implementacion
 Para el desarrollo del compilador se llevo a cabo una implementacion separada en diferentes partes, siguiendo la siguiente hoja de ruta:
- 
-1 - Reglas lexicas y gramaticales.
-2 - Implementacion de tabla de simbolos.
-3 - Configuracion de Listener.
-4 - Configuracion de Visitor.
-5 - Generacion de codigo intermedio (ThreeAddressCode).
-6 - Optimizacion de codigo intermedio.
+
+1. Reglas lexicas y gramaticales.
+2. Implementacion de tabla de simbolos.
+3. Configuracion de Listener.
+4. Configuracion de Visitor.
+5. Generacion de codigo intermedio (ThreeAddressCode).
+6. Optimizacion de codigo intermedio.
 
 ![](./imgs/AppUML.png)
 

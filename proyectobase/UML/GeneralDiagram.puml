@@ -116,6 +116,12 @@ abstract class compiladores.ID <<abstract>> {
 }
 
 class compiladores.Variable {
+    - name: String
+    - value: Object
+    - dataType: DataType
+    - used: Boolean
+    - initialized: Boolean
+
     + Variable(name, dataType, used, initialized)
 }
 
@@ -139,9 +145,6 @@ class compiladores.Parameter {
     + setDataType(): void
     + setName(): void
 }
-
-
-
 
 compiladores.SymbolTable --> compiladores.ID
 compiladores.ID <|-- compiladores.Variable

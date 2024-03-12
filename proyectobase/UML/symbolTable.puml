@@ -38,7 +38,15 @@ abstract class ID <<abstract>> {
     + getInitialized() : Boolean
 }
 
-class Variable {}
+class Variable {
+    - name: String
+    - value: Object
+    - dataType: DataType
+    - used: Boolean
+    - initialized: Boolean
+
+    + Variable(name, dataType, used, initialized)
+}
 
 class Function {
     - args: LinkedList<Parameter>
