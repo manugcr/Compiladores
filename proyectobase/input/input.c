@@ -1,5 +1,4 @@
-int addition(int a, int b);
-
+int addition(int, int);
 
 int main() {
     int var1 = 3;

@@ -76,7 +76,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
         System.out.println("\n ----------- Visitor begins ------------\n");
         
         visitChildren(ctx);
-
+        System.out.println("visitProgram()");
         File file = new File(filePath);
         if (file.exists()) {
             file.delete();
@@ -104,14 +104,14 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitInstructions(InstructionsContext ctx) {
-        
+        System.out.println("visitInstructions()");
         visitChildren(ctx);
         return TAC;
     }
 
     @Override
     public String visitInstruction(InstructionContext ctx) {
-        
+        System.out.println("visitInstruction()");
         visitChildren(ctx);
         return TAC;
     }
@@ -124,7 +124,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitCall_parameter(Call_parameterContext ctx) {
-        
+        System.out.println("visitCall_parameter()");
         if(ctx.NUMBER() != null) {
             TAC += "\npush " + ctx.NUMBER().getText();
         }
@@ -144,6 +144,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitParameters_list(Parameters_listContext ctx) {
+        System.out.println("visitParameters_list()");
         visitChildren(ctx);
         TAC += "\npop " + ctx.ID().getText();
         return TAC;
@@ -157,14 +158,14 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitLogical_arithmetic_expression(Logical_arithmetic_expressionContext ctx) {
-    
+        System.out.println("visitLogical_arithmetic_expression()");
         visitChildren(ctx);
         return TAC;
     }
 
     @Override
     public String visitLogic(LogicContext ctx) {
-        
+        System.out.println("visitLogic()");
         if(ctx.getChild(1) == null) { 
             visitArithmetic_expression(ctx.arithmetic_expression(0)); 
 
@@ -225,21 +226,21 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitArithmetic_expression(Arithmetic_expressionContext ctx) {
-        
+        System.out.println("visitArithmetic_expression()");
         visitChildren(ctx);
         return TAC;
     }
 
     @Override
     public String visitA_term(A_termContext ctx) {
-        
+        System.out.println("visitA_term()");
         visitChildren(ctx);
         return TAC;
     }
 
     @Override
     public String visitFactor(FactorContext ctx) {
-        
+        System.out.println("visitFactor()");
         if (ctx.NUMBER() != null) {
             operands.push(ctx.NUMBER().getText());
         }
@@ -261,7 +262,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitAf(AfContext ctx) {
-        
+        System.out.println("visitAf()");
         String firstOperand;
 
         if(ctx.factor() != null) {
@@ -294,7 +295,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitAt(AtContext ctx) {
-        
+        System.out.println("visitAt()");
         String firstOperand;
 
         if(ctx.a_term() != null) {
@@ -335,14 +336,14 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitAssignments(AssignmentsContext ctx) {
-        
+        System.out.println("visitAssignments()");
         visitChildren(ctx);
         return TAC;
     }
     
     @Override
     public String visitAssignment(AssignmentContext ctx) {
-        
+        System.out.println("visitAssignment()");
         visitLogical_arithmetic_expression(ctx.logical_arithmetic_expression());
 
         String id = ctx.ID().getText();
@@ -361,21 +362,21 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitStatement(StatementContext ctx) {
-        
+        System.out.println("visitStatement()");
         visitStatements(ctx.statements());
         return TAC;
     }
 
     @Override
     public String visitStatements(StatementsContext ctx) {
-        
+        System.out.println("visitStatements()");
         visitChildren(ctx);
         return TAC;
     }
 
     @Override
     public String visitStatement_with_assign(Statement_with_assignContext ctx) {
-        
+        System.out.println("visitStatement_with_assign()");
         // The same as an assignment.
 
         visitLogical_arithmetic_expression(ctx.logical_arithmetic_expression());
@@ -396,7 +397,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */ 
     @Override
     public String visitReturn_stmt(Return_stmtContext ctx) {
-        
+        System.out.println("visitReturn_stmt()");
         visitLogical_arithmetic_expression(ctx.logical_arithmetic_expression());
 
         String returnValue = operands.pop();
@@ -417,7 +418,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitWhile_stmt(While_stmtContext ctx) {
-        
+        System.out.println("visitWhile_stmt()");
         String entryLabel = labelGenerator.getNewLabel("lwhileEntry");
         TAC += "\n" + entryLabel + ":";
 
@@ -448,7 +449,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitIf_stmt(If_stmtContext ctx) {
-            
+        System.out.println("visitIf_stmt()");    
         visitLogical_arithmetic_expression(ctx.logical_arithmetic_expression());
         String condition = operands.pop();
         TAC += "\njnz " + condition;
@@ -471,7 +472,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitElse_stmt(Else_stmtContext ctx) {
-        
+        System.out.println("visitElse_stmt()");
         if (ctx.logical_arithmetic_expression() != null) {
 
             visitLogical_arithmetic_expression(ctx.logical_arithmetic_expression());
@@ -507,7 +508,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitInc_dec(Inc_decContext ctx) {
-        
+        System.out.println("visitInc_dec()");
         if (ctx.getChild(0).getText().contains("+") || ctx.getChild(0).getText().contains("-")) {
             preOrPost = 1;
         }
@@ -539,7 +540,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitFunction_stmt(Function_stmtContext ctx) {
-        
+        System.out.println("visitFunction_stmt()");
         if (ctx.getChild(0) instanceof Function_declarationContext) {
             visitFunction_declaration(ctx.function_declaration());
             visitInstructions(ctx.block_of_code().instructions());
@@ -556,7 +557,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitFunction_call(Function_callContext ctx) {
-        
+        System.out.println("visitFunction_call()");
         visitCall_parameters_list(ctx.call_parameters_list());
 
         String returnLabel = labelGenerator.getNewLabel("lreturn");
@@ -580,7 +581,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
      */
     @Override
     public String visitFunction_declaration(Function_declarationContext ctx) {
-        
+        System.out.println("visitFunction_declaration()");
         String entryLabel = ctx.ID().getText();
         TAC += "\n" + entryLabel + ":";
         returnLabel = labelGenerator.getNewLabel("lreturn");
@@ -595,7 +596,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitFor_condition(For_conditionContext ctx) {
-        
+        System.out.println("visitFor_condition()");
         visitChildren(ctx);
         return TAC;
     }
@@ -609,7 +610,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitFor_stmt(For_stmtContext ctx) {
-        
+        System.out.println("visitFor_stmt()");
         visitFor_declaration(ctx.for_declaration());
         
         String entryLabel = labelGenerator.getNewLabel("lforEntry");
@@ -635,6 +636,7 @@ public class Visitor extends compiladoresBaseVisitor<String> {
 
     @Override
     public String visitFor_update(For_updateContext ctx) {
+        System.out.println("visitFor_update()");
         visitChildren(ctx);
         return TAC;
     }

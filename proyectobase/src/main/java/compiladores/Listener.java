@@ -59,8 +59,9 @@ public class Listener extends compiladoresBaseListener{
 
 
     /* 
-     * Initial rule. We need to delete the symbol table and create a new context.
-     * We only enter the program once because its a single pass listener. 
+     * Initial rule. 
+     *  - We need to delete the symbol table and create a new context.
+     *  - We only enter the program once because its a single pass listener. 
      */
     @Override
     public void enterProgram(ProgramContext ctx) {
@@ -73,7 +74,8 @@ public class Listener extends compiladoresBaseListener{
     }
     
     /*
-     * Final rule. We need to log the symbol table and then check for erros and warnings.
+     * Final rule. 
+     *  - We need to log the symbol table and then check for erros and warnings.
      */
     @Override
     public void exitProgram(ProgramContext ctx) {
@@ -93,13 +95,16 @@ public class Listener extends compiladoresBaseListener{
 
     /*
      * A block of code means a new context, its delimited by curly braces {}.
-     * For example we have a block of code after main function declaration.
+     * For example we have a block of code after function declaration.
      *      
-     *      int main() { ... }  
+     *      int addition(int, int) { ... }  
+     * 
+     *  - We load a new context and the function parameters are added to the local context.
      */
     @Override
     public void enterBlock_of_code(Block_of_codeContext ctx) {
-        
+
+        System.out.println("enterBlock_of_code");
         if (ctx.getParent() instanceof Function_stmtContext) {
             symbolTable.addContext(); 
             Function function = (Function) symbolTable.searchSymbol(ctx.getParent().getChild(0).getChild(1).getText());
@@ -114,19 +119,23 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * When we exit a block of code we need to check if we come from a function, and if the function has a return statement.
-     * We also need to delete the context after a succesful exit.
+     * When we exit a block of code we need to check:
+     *  - If we come from a function, and if the function has a return statement.
+     *  - We also need to delete and save the local context after a succesful exit.
      */
     @Override
     public void exitBlock_of_code(Block_of_codeContext ctx) {
-        
+
+        System.out.println("exitBlock_of_code");
         if (ctx.getParent() instanceof Function_stmtContext) {
+
             DataType returnType =  DataType.getDataType(ctx.getParent().getChild(0).getChild(0).getText());
             Boolean returnFlag = false;
 
             InstructionsContext instructions = ctx.instructions();
 
             while(instructions.getChildCount() != 0) {
+                /* Look for return statement */
                 if(instructions.instruction().getChild(0) instanceof Return_stmtContext) {
                     returnFlag = true;
                     break;
@@ -134,6 +143,10 @@ public class Listener extends compiladoresBaseListener{
                 instructions = (InstructionsContext) instructions.instructions();
             }
 
+            /* Check for errors:
+             *  - If a function is VOID and has a return statement.
+             *  - If a function is non VOID but hasnt got a return statement.
+             */
             if(returnType.toString() == "VOID" && returnFlag) {
                 throw new RuntimeException("error: 'return' with a value in function returning void");
             }
@@ -148,17 +161,21 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * We create a new function, checking wether it is a prototype or it is a declaration and we add it to the context.
-     */
+     * We create a new function
+     *  - If the function hasnt got a prototype we add it to the local context.
+     *  - If it has a prototype we check for parameters and return types, and initialize the function.
+     */ 
     @Override
     public void exitFunction_declaration(Function_declarationContext ctx) {
-        
+
+        System.out.println("exitFunction_declaration");
         String functionName = ctx.ID().getText();
         Parameters_listContext parameters = ctx.parameters_list();
         DataType dataType = DataType.getDataType(ctx.TYPE().getText());
 
         Function function = new Function(functionName, dataType, false, true);
     
+        /* Add function parameters. */
         while (parameters.getChildCount() != 0) {
             function.addArg(DataType.getDataType(parameters.TYPE().getText()), parameters.ID().getText());
             if (parameters.getChildCount() == 4) {
@@ -179,10 +196,11 @@ public class Listener extends compiladoresBaseListener{
             symbolTable.addSymbol(function);
         }
         else {
+            /* Different types */
             if (function.getDataType() != prototype.getDataType()) {
                 throw new RuntimeException("error: conflicting types for ' " + functionName + "'");
             }
-
+            /* Different parameters */
             if (!function.compareArgs(prototype.getArgs())) {
                 throw new RuntimeException("error: conflicting types for ' " + functionName + "'");
             }
@@ -198,7 +216,8 @@ public class Listener extends compiladoresBaseListener{
      */
     @Override
     public void exitFunction_prototype(Function_prototypeContext ctx) {
-        
+
+        System.out.println("exitFunction_prototype");
         String functionName = ctx.ID().getText();
 
         if (symbolTable.searchLocalSymbol(functionName) == null) {
@@ -227,11 +246,12 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * Add each declared variable to the context, checking for redefinitions and if the variable is initialized.
+     * Add each declared variable to the local context, checking for redefinitions and if the variable is initialized.
      */
     @Override
     public void exitStatement(StatementContext ctx) {
 
+        System.out.println("exitStatement");
         DataType statementDataType = DataType.getDataType(ctx.TYPE().getText()); 
         StatementsContext statementsTypes = ctx.statements();
 
@@ -256,7 +276,6 @@ public class Listener extends compiladoresBaseListener{
             
             variable.setName(variableName);
             
-            // Check if value is null, if not assign the value after the character '='
             if (initialized) {
                 String value = statementsTypes.getChild(0).getChild(2).getText();
                 variable.setValue(value);
@@ -276,11 +295,13 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * When we assign a value to a variable, we first check wether it was declared and then we initialize it.
+     * When we assign a value to a variable:
+     *  - We first check wether it exists in the context and then we initialize it.
      */
     @Override
     public void exitAssignment(AssignmentContext ctx) {
-        
+
+        System.out.println("exitAssignment");
         String variableName = ctx.ID().getText();
 
         ID variable = symbolTable.searchSymbol(variableName);
@@ -297,11 +318,13 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * A factor is an operand of a logical or arithmetic expression. We need to check if the variable was declared and if it was initialized.
+     * A factor is an operand of a logical or arithmetic expression. 
+     *  - We need to check if the variable was declared and if it was initialized.
      */
     @Override
     public void exitFactor(FactorContext ctx) {
-        
+
+        System.out.println("exitFactor");
         if (ctx.ID() != null) {
             ID id = symbolTable.searchSymbol(ctx.ID().getText());
 
@@ -312,7 +335,7 @@ public class Listener extends compiladoresBaseListener{
                 id.setUsed(true);
             }
             else {
-                throw new RuntimeException("error: '" + ctx.ID().getText() + "' undeclared (first use in this function)");
+                throw new RuntimeException("error: '" + ctx.ID().getText() + "' undeclared");
             }
         }
         else if (ctx.inc_dec() != null) {
@@ -325,27 +348,27 @@ public class Listener extends compiladoresBaseListener{
                 id.setUsed(true);
             }
             else {
-                throw new RuntimeException("error: '" + ctx.inc_dec().ID().getText() + "' undeclared (first use in this function)");
+                throw new RuntimeException("error: '" + ctx.inc_dec().ID().getText() + "' undeclared");
             }
         }
     }
 
 
     /*
-     * When we call a function, we need to check if the function was declared, if the parameters are the same as the expected ones, and if it should return a value.
+     * When we call a function:
+     *  - We need to check if the function was declared, 
+     *  - If the parameters are the same as the expected ones, and if it should return a value. (we use compareLists() for this.)
      */
     @Override
     public void exitFunction_call(Function_callContext ctx) {
-        
+
+        System.out.println("exitFunction_call");
         Function function = (Function) symbolTable.searchSymbol(ctx.ID().getText());
 
         if (function != null) {
-            if (ctx.getParent() instanceof FactorContext && function.getDataType() == DataType.VOID) { 
-                throw new RuntimeException("error: void value not ignored as it ought to be");
-            }
             
-            LinkedList <DataType> expectedParameters = function.getDataTypeArgs();
-            LinkedList <DataType> parameters = new LinkedList<>();
+            LinkedList<DataType> expectedParameters = function.getDataTypeArgs();
+            LinkedList<DataType> parameters = new LinkedList<>();
             Call_parameters_listContext callParameters = ctx.call_parameters_list();
 
             while (callParameters.getChildCount() != 0) {
@@ -365,7 +388,7 @@ public class Listener extends compiladoresBaseListener{
                         variable.setUsed(true);
                     } 
                     else {
-                        throw new RuntimeException("error: '" + variableName + "' undeclared (first use in this function)");
+                        throw new RuntimeException("error: '" + variableName + "' undeclared");
                     }
 
                     parameters.add(variable.getDataType());
@@ -381,7 +404,7 @@ public class Listener extends compiladoresBaseListener{
                         variable.setUsed(true);
                     }
                     else { 
-                        throw new RuntimeException("error: '" + variableName + "' undeclared (first use in this function)");    
+                        throw new RuntimeException("error: '" + variableName + "' undeclared");    
                     }
 
                     parameters.add(DataType.INT);
@@ -403,7 +426,7 @@ public class Listener extends compiladoresBaseListener{
                 
             }
 
-            // Check if the number of returned parameters is the same as the expected parameters
+            /* Check if the number of returned parameters is the same as the expected parameters */ 
             if(!compareLists(parameters, expectedParameters)) {
                 throw new RuntimeException("Error: In function " + function.getName() + " invalid parameters\n Obtained: " + parameters + "\n Expected " + expectedParameters);
             }
@@ -416,39 +439,44 @@ public class Listener extends compiladoresBaseListener{
     }
 
 
+    /* Just adds the local context of for, while, if, else instructions. */
     @Override
     public void enterFor_stmt(For_stmtContext ctx) {
-        
+
+        System.out.println("enterFor_stmt");
         symbolTable.addContext();
     }
 
-
     @Override
     public void enterWhile_stmt (While_stmtContext ctx) {
-        
+
+        System.out.println("enterWhile_stmt");
         symbolTable.addContext();
     }
 
     @Override
     public void enterIf_stmt (If_stmtContext ctx) {
-        
+
+        System.out.println("enterIf_stmt");
         symbolTable.addContext();
     }
 
-
     @Override
     public void enterElse_stmt (Else_stmtContext ctx) {
-        
+
+        System.out.println("enterElse_stmt");
         symbolTable.addContext();
     }
 
 
     /*
-     * This is only to exit the if, else, for and while instructions. And add the context of the instruction to the symbol table.
+     * This is only to exit the if, else, for and while instructions. 
+     * Adds the context of the instruction to the symbol table.
      */
     @Override
     public void exitInstruction(InstructionContext ctx) {
         
+        System.out.println("exitInstruction");
         if(!(ctx.getChild(0) instanceof Block_of_codeContext)) {
             if (ctx.getParent() instanceof For_stmtContext | ctx.getParent() instanceof If_stmtContext  | ctx.getParent() instanceof Else_stmtContext | ctx.getParent() instanceof While_stmtContext) {
                 delContext();
@@ -458,7 +486,7 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * Log context to the symbol table file gets unused/uninitialized variables and deletes the context.
+     * Log context to the symbol table file gets unused/uninitialized variables and deletes the local context.
      */
     public void delContext() {
 
@@ -477,7 +505,7 @@ public class Listener extends compiladoresBaseListener{
 
 
     /*
-     * Compare two lists to check if the parameters we want are the same as the ones we have.
+     * We use it to compare if the list of parameters we want in a function call, is the same as the list of parameters we get in return.
      */
     public <T> Boolean compareLists(LinkedList <T> list1, LinkedList<T> list2) {
         
