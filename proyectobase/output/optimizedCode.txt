@@ -1,0 +1,32 @@
+
+main:
+pop lreturn0
+n = 10
+push n
+push lreturn1
+jmp sum_of_n
+lreturn1:
+pop sum
+t3 = sum
+sum = sum+1
+t4 = 0
+push t4
+jmp lreturn0
+
+sum_of_n:
+pop lreturn2
+pop n
+sum = 0
+i = 1
+lforEntry3:
+t7 = i<=n
+jnz t7
+jmp lforExit4
+sum = sum+i
+t10 = i
+i = i+1
+jmp lforEntry3
+lforExit4:
+t11 = sum
+push t11
+jmp lreturn2

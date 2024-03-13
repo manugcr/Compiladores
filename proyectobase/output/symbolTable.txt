@@ -2,12 +2,30 @@
 ----------------- Symbol Table -------------------------
 NAME           TYPE      USED      INITIALIZED    VALUE               
 --------------------------------------------------------
+sum_of_n       INT       true      false          null                
 main           INT       true      true           null                
-var1           INT       true      true           3+1                 
-var2           INT       true      true           4*5                 
-result         INT       true      true           var1+var2           
+n              INT       true      true           10                  
+sum            INT       true      true           sum_of_n(n)         
 
 ----------------- Symbol Table -------------------------
 NAME           TYPE      USED      INITIALIZED    VALUE               
 --------------------------------------------------------
+sum_of_n       INT       true      true           null                
+main           INT       true      true           null                
+n              INT       true      true           null                
+sum            INT       true      true           0                   
+i              INT       true      true           1                   
+
+----------------- Symbol Table -------------------------
+NAME           TYPE      USED      INITIALIZED    VALUE               
+--------------------------------------------------------
+sum_of_n       INT       true      true           null                
+main           INT       true      true           null                
+n              INT       true      true           null                
+sum            INT       true      true           0                   
+
+----------------- Symbol Table -------------------------
+NAME           TYPE      USED      INITIALIZED    VALUE               
+--------------------------------------------------------
+sum_of_n       INT       true      true           null                
 main           INT       true      true           null                
