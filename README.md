@@ -6,19 +6,19 @@ Proyecto para Practica y Construccion de Compiladores
 # Objetivo
 Desarrollar un compilador para lenguaje C reducido.
 
-Dado un archivo de entrada en C, se debe generar como salida el reporte de errores en caso de existir. Para lograr esto se debe construir un parser que tenga como mínimo la implementación de los siguientes puntos:
-- Reconocimiento de bloques de código delimitados por llaves y controlar balance de apertura y cierre.
-- Verificación de la estructura de las operaciones aritmético/lógicas y las variables o números afectadas.
-- Verificación de la correcta utilización del punto y coma para la terminación de instrucciones.
-- Balance de llaves, corchetes y paréntesis.
-- Tabla de símbolos.
+Dado un archivo de entrada en C, se debe generar como salida el reporte de errores en caso de existir. Para lograr esto se debe construir un parser que tenga como minimo la implementacion de los siguientes puntos:
+- Reconocimiento de bloques de codigo delimitados por llaves y controlar balance de apertura y cierre.
+- Verificacion de la estructura de las operaciones aritmetico/logicas y las variables o numeros afectadas.
+- Verificacion de la correcta utilizacion del punto y coma para la terminacion de instrucciones.
+- Balance de llaves, corchetes y parentesis.
+- Tabla de simbolos.
 - Llamado a funciones de usuario.
 
-Si las fases de verificación gramatical y semántica no han encontrado errores, se debe proceder a:
+Si las fases de verificacion gramatical y semántica no han encontrado errores, se debe proceder a:
 - Detectar variables y funciones declaradas pero no utilizadas y viceversa,
-- Generar la versión en código intermedio utilizando código de tres direcciones, el cual fue abordado en clases y se encuentra explicado con mayor profundidad en la bibliografía de la materia,
+- Generar la version en codigo intermedio utilizando codigo de tres direcciones, el cual fue abordado en clases y se encuentra explicado con mayor profundidad en la bibliografia de la materia,
 
-En resumen, dado un código fuente de entrada el programa deberá generar dos archivos de salida:
+En resumen, dado un codigo fuente de entrada el programa deberá generar dos archivos de salida:
 - Las tablas de simoblos para cada contexto.
 - La version en codigo de tres direcciones del codigo fuente de entrada.
 
@@ -230,7 +230,16 @@ t1 = t0;    --->    var1 = t1     --->    var1 = 5
 var1 = t1;
 ```
 
-Para la eliminacion de variables no utilizadas ... (completar)
+Para la eliminacion de variables redundantes se utilizo Pattern Matching, que es una tecnica que se utiliza para buscar patrones en un texto, en este caso se busca patrones donde una variable es asignada a otra variable con la forma `t_n` y luego es utilizada en otra operacion, si se encuentra un patron de este tipo se reemplaza la variable por el valor que se le asigno.
+
+Un ejemplo paso a paso de la optimizacion de codigo intermedio:
+1. Divide el codigo de entrada en lineas y recorre linea a linea el codigo.
+2. Busca coincidencias con el patron “algo = t_numero”. Si encuentra una coincidencia, realiza los siguientes pasos:
+    2.1. Extrae la variable (el “algo” antes del signo igual) y el valor (el “t_numero” despues del signo igual).
+    2.2. Luego, el metodo reemplaza todas las ocurrencias del valor (la variable temporal) en el outputCode con la variable.
+3. Si la linea no coincide con el patron “algo = t_numero”, se agrega tal cual al outputCode.
+
+Esta secuencia se repite dentro de un loop el cual va verificando linea a linea el codigo intermedio, por lo que en una sola pasada se puede optimizar el codigo intermedio, sin necesidad de utilizar listas o estructuras de datos para llevar un control de las variables temporales.
 
 ---
 
