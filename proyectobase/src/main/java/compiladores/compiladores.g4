@@ -53,6 +53,7 @@ TYPE                : (INT | DOUBLE | CHAR | VOID | STRING | BOOLEAN)   ;
 ID                  : (LETTER | '_')(LETTER | DIGIT | '_')*             ;
 NUMBER              : DIGIT+                                            ;
 TEXT                : '"' (LETTER | '_') (LETTER | DIGIT | '_')* '"'    ;
+COMMENT             : '//' ~[\r\n]* -> skip                             ;
 WS                  : [ \n\t\r] -> skip                                 ;
 OTHER               : .                                                 ;
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,8 +83,6 @@ program : instructions EOF
 instructions : instruction instructions
              |
              ;
-
-
 
 /* 
  * Allowed instruction by this C compiler. 

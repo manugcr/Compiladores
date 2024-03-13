@@ -3,6 +3,8 @@ package compiladores;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CodeOptimizer {
     
@@ -20,8 +22,7 @@ public class CodeOptimizer {
 
         // Remove redundant assignments
         cleanAssignments();
-        cleanVariables();
-        
+
         // Save optimized code to filePath.
         File file = new File(filePath);
         if(file.exists())
@@ -57,16 +58,25 @@ public class CodeOptimizer {
      * Only leaving the last assignment for example var1 in this case.
      */
     private void cleanAssignments() {
+        // Split the input code into lines
+        String[] lines = inputCode.split("\n");
 
+        for (String line : lines) {
+            // Match lines of the form "something = t_number"
+            Matcher m = Pattern.compile("(.*) = (t(\\d+))").matcher(line);
+            if (m.find()) {
+                System.out.println("Found occurrence: " + m.group(0));
+                String var = m.group(1);
+                String value = m.group(2);
+
+                outputCode = outputCode.replace(value, var);
+
+            } else {
+                // If the line doesn't match, add it to the output code as is
+                outputCode += line + "\n";
+            }
+        }
     }
 
-
-    /*
-    * Remove unused variables.
-    *      We could use the symbol table to check if a variable is used or not.
-    *      Alternatively, we could read every line of the TAC code and check if a variable appears more than once.
-    */ 
-    private void cleanVariables() {
-
-    }
 }
+

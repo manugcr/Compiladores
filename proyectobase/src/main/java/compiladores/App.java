@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // create a CharStream that reads from file
-        CharStream input = CharStreams.fromFileName("input/input.c");
+        CharStream input = CharStreams.fromFileName("input/input2.c");
 
         // create a lexer that feeds off of input CharStream
         compiladoresLexer lexer = new compiladoresLexer(input);
@@ -35,12 +35,12 @@ public class App {
 
             // Conectamos el visitor y creamos el codigo intermedio
             Visitor visitor = new Visitor();
-            String TAC = visitor.visit(tree);
+            String ThreeAddressCode = visitor.visit(tree);
 
             // Optimizamos el código
-            CodeOptimizer optimizer = new CodeOptimizer(TAC);
+            CodeOptimizer optimizer = new CodeOptimizer(ThreeAddressCode);
             optimizer.optimizeCode();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(1);

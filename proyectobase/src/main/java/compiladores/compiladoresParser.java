@@ -22,7 +22,8 @@ public class compiladoresParser extends Parser {
 		O_PAREN=1, C_PAREN=2, O_BRACE=3, C_BRACE=4, O_BRACKET=5, C_BRACKET=6, 
 		SEMICOLON=7, COMMA=8, EQUAL=9, ADD=10, SUB=11, MULT=12, DIV=13, MOD=14, 
 		AND=15, OR=16, INCREMENT=17, DECREMENT=18, CMP=19, RETURN=20, IF=21, ELSE=22, 
-		WHILE=23, FOR=24, TYPE=25, ID=26, NUMBER=27, TEXT=28, WS=29, OTHER=30;
+		WHILE=23, FOR=24, TYPE=25, ID=26, NUMBER=27, TEXT=28, COMMENT=29, WS=30, 
+		OTHER=31;
 	public static final int
 		RULE_program = 0, RULE_instructions = 1, RULE_instruction = 2, RULE_block_of_code = 3, 
 		RULE_statement = 4, RULE_statements = 5, RULE_statement_with_assign = 6, 
@@ -60,7 +61,7 @@ public class compiladoresParser extends Parser {
 			null, "O_PAREN", "C_PAREN", "O_BRACE", "C_BRACE", "O_BRACKET", "C_BRACKET", 
 			"SEMICOLON", "COMMA", "EQUAL", "ADD", "SUB", "MULT", "DIV", "MOD", "AND", 
 			"OR", "INCREMENT", "DECREMENT", "CMP", "RETURN", "IF", "ELSE", "WHILE", 
-			"FOR", "TYPE", "ID", "NUMBER", "TEXT", "WS", "OTHER"
+			"FOR", "TYPE", "ID", "NUMBER", "TEXT", "COMMENT", "WS", "OTHER"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -2532,7 +2533,7 @@ public class compiladoresParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u001e\u0146\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0004\u0001\u001f\u0146\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
 		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
 		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
 		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
