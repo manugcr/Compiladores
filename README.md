@@ -237,3 +237,32 @@ Para la eliminacion de variables no utilizadas ... (completar)
 # Ejemplo de ejecucion
 
 ... (completar)
+
+---
+
+# Errores
+- Hay ciertos casos en la optimizacion de codigo intermedio que no se esta eliminando las variables no utilizadas. Por ejemplo en este caso, t3 es innecesaria pero el optimizador no la elimina.
+```
+NoOpt               Opt                 Correct
+---------------------------------------------------
+lreturn1:           lreturn1:           lreturn1:
+pop t1              pop sum             pop sum
+t2 = t1             t3 = sum            sum = sum+1
+sum = t2            sum = sum+1
+t3 = sum
+sum = sum+1
+```
+- Si una variable temporal es utilizada en conjunto con una operacion, el optimizador elimina por completo la operacion y deja solamente la variable temporal. Por ejemplo en este caso:
+```
+NoOpt               Opt                 Correct
+---------------------------------------------------
+t0 = 3*4            a = 3*4             a = 3*4+5
+t1 = t0+5
+t2 = t1
+a = t2
+```
+- El compilador no detecta incrementos/decrementos y asignaciones en una misma linea. Por ejemplo en este caso:
+```
+var1 += 1;
+var2 -= 1;
+```
