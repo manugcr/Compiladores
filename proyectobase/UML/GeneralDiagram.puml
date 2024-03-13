@@ -14,9 +14,6 @@ class compiladores.App {
     + void main(String[] args)
 }
 
-
-
-
 class compiladores.Listener {
     - SymbolTable symbolTable
     - String filePath
@@ -24,9 +21,6 @@ class compiladores.Listener {
     + void enterProgram(ProgramContext ctx)
     + void exitProgram(ProgramContext ctx)
 }
-
-
-
 
 class compiladores.Visitor {
     - VariableGenerator variableGenerator
@@ -64,20 +58,13 @@ class compiladores.LabelGenerator <<singleton>> {
     + getNewLabel(labelType : String) : String
 }
 
-
-
-
 class compiladores.CodeOptimizer {
     - inputCode: String
     - outputCode: String
     - filePath: String
     + optimizeCode(): void
     + cleanAssignments(): void
-    + cleanVariables(): void
 }
-
-
-
 
 class compiladores.SymbolTable <<singleton>> {
     - table : LinkedList<Map<String,ID>  

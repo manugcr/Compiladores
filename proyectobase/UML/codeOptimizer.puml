@@ -8,7 +8,6 @@ class CodeOptimizer {
     - filePath: String
     + optimizeCode(): void
     + cleanAssignments(): void
-    + cleanVariables(): void
 }
 
 @enduml
