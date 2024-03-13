@@ -235,8 +235,8 @@ Para la eliminacion de variables redundantes se utilizo Pattern Matching, que es
 Un ejemplo paso a paso de la optimizacion de codigo intermedio:
 1. Divide el codigo de entrada en lineas y recorre linea a linea el codigo.
 2. Busca coincidencias con el patron “algo = t_numero”. Si encuentra una coincidencia, realiza los siguientes pasos:
-    2.1. Extrae la variable (el “algo” antes del signo igual) y el valor (el “t_numero” despues del signo igual).
-    2.2. Luego, el metodo reemplaza todas las ocurrencias del valor (la variable temporal) en el outputCode con la variable.
+    1. Extrae la variable (el “algo” antes del signo igual) y el valor (el “t_numero” despues del signo igual).
+    2. Luego, el metodo reemplaza todas las ocurrencias del valor (la variable temporal) en el outputCode con la variable.
 3. Si la linea no coincide con el patron “algo = t_numero”, se agrega tal cual al outputCode.
 
 Esta secuencia se repite dentro de un loop el cual va verificando linea a linea el codigo intermedio, por lo que en una sola pasada se puede optimizar el codigo intermedio, sin necesidad de utilizar listas o estructuras de datos para llevar un control de las variables temporales.
