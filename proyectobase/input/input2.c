@@ -1,17 +1,19 @@
-int addition(int, int);
+int sum_of_n(int n);
 
 int main() {
-    int var1 = 3;
-    int var2;
+    int n = 10;
 
-    var2 = 4*5;
-
-    int result = addition(var1, var2);
-    result++;
+    int sum = sum_of_n(n);
+    
+    sum--;
 
     return 0;    
 }
 
-int addition(int a, int b) {
-    return a + b;
+int sum_of_n(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        sum = sum + i;
+    }
+    return sum;
 }
