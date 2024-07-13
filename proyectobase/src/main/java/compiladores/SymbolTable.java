@@ -19,7 +19,7 @@
  * context, searching for symbols globally and locally within the current context, retrieving lists of unused and
  * uninitialized symbols, printing the symbol table to the console, saving it to a file, and deleting a file.
  */
-    
+
 package compiladores;
 
 import java.util.Map;
@@ -33,14 +33,13 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 
 public class SymbolTable {
-    
+
     private LinkedList<Map<String, ID>> list;
     private static SymbolTable instace;
 
     private SymbolTable() {
         this.list = new LinkedList<Map<String, ID>>();
     }
-
 
     public static SymbolTable getInstanceOf() {
         if (instace == null) {
@@ -49,61 +48,55 @@ public class SymbolTable {
         return instace;
     }
 
-
     public void addContext() {
         this.list.add(new LinkedHashMap<String, ID>());
     }
-
 
     public void delContext() {
         this.list.removeLast();
     }
 
-
     public void addSymbol(ID id) {
         this.list.getLast().put(id.getName(), id);
     }
 
-
     public ID searchSymbol(String name) {
         Iterator<Map<String, ID>> iterator = list.descendingIterator();
 
-        while(iterator.hasNext()) {
-            Map<String,ID> context = iterator.next();
-            
-            if(context.containsKey(name)) {
+        while (iterator.hasNext()) {
+            Map<String, ID> context = iterator.next();
+
+            if (context.containsKey(name)) {
                 return context.get(name);
             }
         }
         return null;
     }
 
-
     public ID searchLocalSymbol(String name) {
         if (list.getLast().containsKey(name)) {
             return list.getLast().get(name);
         }
         return null;
-    }    
-
+    }
 
     public List<String> getUnusedID() {
         List<String> unusedList = new ArrayList<String>();
 
-        for(Map.Entry<String, ID> entry: list.getLast().entrySet()) {
-            if(!entry.getValue().getUsed()) {
+        for (Map.Entry<String, ID> entry : list.getLast().entrySet()) {
+            if (!entry.getValue().getUsed()) {
                 unusedList.add(entry.getKey());
             }
         }
         return unusedList;
     }
 
-
     public List<String> getUsedUninitialized() {
         List<String> usedUninitialized = new ArrayList<String>();
 
-        for(Map.Entry<String, ID> entry: list.getLast().entrySet()) {
-            if(entry.getValue() instanceof Function && entry.getValue().getUsed() && !entry.getValue().getInitialized()) {
+        for (Map.Entry<String, ID> entry : list.getLast().entrySet()) {
+            if (entry.getValue() instanceof Function && entry.getValue().getUsed()
+                    && !entry.getValue().getInitialized()) {
                 usedUninitialized.add(entry.getKey());
             }
         }
@@ -122,7 +115,7 @@ public class SymbolTable {
                     String used = String.valueOf(id.getUsed());
                     String initialized = String.valueOf(id.getInitialized());
                     String value = id.getValue();
-                    
+
                     writer.write(String.format("%-15s%-10s%-10s%-15s%-20s\n", name, type, used, initialized, value));
                 }
             }
@@ -130,7 +123,6 @@ public class SymbolTable {
             System.out.println("Unable to write file: " + filePath);
         }
     }
-    
 
     public void delFile(String filePath) {
         File file = new File(filePath);

@@ -22,7 +22,6 @@
  * This class is thread-safe and ensures that each label has a unique name, which is crucial for the correct execution of the generated TAC.
  */
 
-
 package compiladores;
 
 import java.util.LinkedList;
@@ -63,5 +62,5 @@ public class LabelGenerator {
         this.count++;
         return newLabel;
     }
-    
+
 }

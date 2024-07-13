@@ -13,13 +13,13 @@ public class App {
 
         // create a lexer that feeds off of input CharStream
         compiladoresLexer lexer = new compiladoresLexer(input);
-        
+
         // create a buffer of tokens pulled from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        
+
         // create a parser that feeds off the tokens buffer
         compiladoresParser parser = new compiladoresParser(tokens);
-                
+
         // create Listener
         compiladoresBaseListener listener = new Listener();
 
@@ -30,6 +30,8 @@ public class App {
         // En este caso la regla es el simbolo inicial
         ParseTree tree = null;
         try {
+            System.out.println("\n ---- Compiling file " + input.getSourceName() + " ----\n");
+
             // Comenzamos el parseo por la regla inicial
             tree = parser.program();
 
@@ -45,5 +47,6 @@ public class App {
             System.out.println(e.getMessage());
             System.exit(1);
         }
+
     }
 }

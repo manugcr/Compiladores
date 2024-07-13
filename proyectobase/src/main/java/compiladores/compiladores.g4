@@ -290,7 +290,7 @@ function_stmt           : function_declaration block_of_code
 function_declaration    : TYPE ID O_PAREN parameters_list C_PAREN
                         ;
 
-parameters_list          : TYPE ID 
+parameters_list         : TYPE ID 
                         | TYPE ID COMMA parameters_list
                         |
                         ;

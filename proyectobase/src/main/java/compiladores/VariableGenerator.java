@@ -26,7 +26,7 @@ package compiladores;
 import java.util.LinkedList;
 
 public class VariableGenerator {
-    
+
     private static VariableGenerator instance;
     private int count;
     private LinkedList<String> variables;
@@ -35,7 +35,7 @@ public class VariableGenerator {
         this.count = 0;
         this.variables = new LinkedList<String>();
     }
-    
+
     public static VariableGenerator getInstanceOf() {
         if (instance == null) {
             instance = new VariableGenerator();

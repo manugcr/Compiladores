@@ -26,5 +26,5 @@ public enum DataType {
                 throw new IllegalArgumentException("DataType not found");
         }
     }
-    
+
 }

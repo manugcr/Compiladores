@@ -23,11 +23,10 @@
  * The ID class is abstract because it represents a generic identifier in your symbol table.
  */
 
-
 package compiladores;
 
 public abstract class ID {
-    
+
     String name;
     String value;
     DataType dataType;
